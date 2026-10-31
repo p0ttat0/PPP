@@ -65,15 +65,16 @@ export function findElementById(html, id) {
 
 export function findElementsByClass(html, className) {
   const elements = [];
-  const pattern = /<([a-zA-Z0-9_-]+)([^>]*?)\bclass=["']([^"']*?)["']([^>]*?)>(?:([\s\S]*?)<\/\1>|)/gi;
+  const escaped = className.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const pattern = new RegExp(
+    `<([a-zA-Z0-9_-]+)([^>]*?)\\bclass=["']([^"']*?\\b${escaped}\\b[^"']*?)["']([^>]*?)>`,
+    'gi'
+  );
   let match;
   while ((match = pattern.exec(html)) !== null) {
-    const classList = (match[3] || '').split(/\s+/);
-    if (classList.includes(className)) {
-      const tag = match[1];
-      const allAttrs = (match[2] || '') + ` class="${match[3]}" ` + (match[4] || '');
-      elements.push(new SimpleElement(tag, parseAttributes(allAttrs), match[5] || '', match[0]));
-    }
+    const tag = match[1];
+    const allAttrs = (match[2] || '') + ` class="${match[3]}" ` + (match[4] || '');
+    elements.push(new SimpleElement(tag, parseAttributes(allAttrs), '', match[0]));
   }
   return elements;
 }

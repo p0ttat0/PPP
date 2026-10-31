@@ -82,8 +82,9 @@ export function formatPrecessionDisplay(omegaP) {
  */
 export function initOscilloscope() {
   // DOM Controls
-  const modeBtns = document.querySelectorAll('.scope-mode-btn[data-rotor-config], [data-state="inner"], [data-state="outer"]');
+  const modeBtns = document.querySelectorAll('button.scope-mode-btn[data-rotor-config], button.rocker-paddle');
   const massRocker = document.getElementById('mass-rocker');
+  const viewHome = document.getElementById('view-home');
   const paddleInner = document.querySelector('.paddle-inner');
   const paddleOuter = document.querySelector('.paddle-outer');
 
@@ -299,9 +300,31 @@ export function initOscilloscope() {
   }
 
   /**
+   * Resumes vector rendering loop if #view-home is active and not hidden
+   */
+  function resumeLoopIfNeeded() {
+    const isHidden =
+      viewHome?.hasAttribute('hidden') ||
+      viewHome?.classList.contains('hidden') ||
+      (viewHome && viewHome.hidden);
+    if (!isHidden) {
+      if (!animationFrameId) {
+        lastFrameTime = performance.now();
+        animationFrameId = requestAnimationFrame(renderVectorFrame);
+      }
+    }
+  }
+
+  /**
    * Real-Time Vector Rendering Frame (Layer 4 Axonometric Precession Cone)
    */
   function renderVectorFrame(timestamp) {
+    // Pause / skip computations and SVG updates when #view-home is hidden
+    if (viewHome?.hasAttribute('hidden') || viewHome?.classList.contains('hidden') || (viewHome && viewHome.hidden)) {
+      animationFrameId = null;
+      return;
+    }
+
     const reduced = isReducedMotionActive();
     const omegaP = computePrecessionRate(currentConfig, currentRpm);
 
@@ -469,11 +492,24 @@ export function initOscilloscope() {
     }
   }
 
+  // Resume loop when view switches back to home or page becomes visible
+  window.addEventListener('viewchange', e => {
+    if (e.detail && e.detail.toView === 'home') {
+      resumeLoopIfNeeded();
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      resumeLoopIfNeeded();
+    }
+  });
+
   // Initial synchronization and launch of the vector animation loop
   updateSimulation();
   lastFrameTime = performance.now();
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
-  animationFrameId = requestAnimationFrame(renderVectorFrame);
+  resumeLoopIfNeeded();
 
   return {
     updateSimulation,

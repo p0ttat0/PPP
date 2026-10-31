@@ -13,11 +13,17 @@ export function initNavigation(callbacks = {}) {
   const pageViews = document.querySelectorAll('.page-view');
   const brandHeader = document.querySelector('.rack-brand');
   const bankCards = document.querySelectorAll('.bank-card[data-nav]');
+  let currentView = 'home';
+  let currentNavSeq = 0;
 
   async function switchPage(targetKey, updateHash = true) {
     if (!VALID_VIEWS.has(targetKey)) {
       targetKey = 'home';
     }
+
+    const previousKey = currentView;
+    currentView = targetKey;
+    const navSeq = ++currentNavSeq;
 
     tabBtns.forEach(btn => {
       const isActive = btn.dataset.target === targetKey;
@@ -31,12 +37,21 @@ export function initNavigation(callbacks = {}) {
       view.hidden = !isTarget;
     });
 
-    if (targetKey === 'post3' && typeof callbacks.onEnterPost3 === 'function') {
-      await callbacks.onEnterPost3();
-    }
-
     if (updateHash) {
       history.replaceState(null, '', `#${targetKey}`);
+    }
+
+    window.dispatchEvent(
+      new CustomEvent('viewchange', {
+        detail: { fromView: previousKey, toView: targetKey }
+      })
+    );
+
+    if (targetKey === 'post3' && typeof callbacks.onEnterPost3 === 'function') {
+      await callbacks.onEnterPost3();
+      if (navSeq !== currentNavSeq) {
+        return;
+      }
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });

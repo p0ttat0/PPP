@@ -63,6 +63,20 @@ function getStatusTagClass(status) {
   return 'phase-pr';
 }
 
+/**
+ * HTML entity escaping utility to safely render text inside container.innerHTML
+ * without breaking DOM hierarchy or exposing XSS vulnerabilities.
+ */
+function escapeHtml(str) {
+  if (typeof str !== 'string') return String(str ?? '');
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export function initConferencing() {
   const container = document.getElementById('conf-cards-container');
   const newConfForm = document.getElementById('new-conf-form');
@@ -80,7 +94,16 @@ export function initConferencing() {
   function loadConferences() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      confEntries = saved ? JSON.parse(saved) : [...DEFAULT_CONFERENCES];
+      if (!saved) {
+        confEntries = [...DEFAULT_CONFERENCES];
+        return;
+      }
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0 && parsed.every(entry => entry && typeof entry === 'object')) {
+        confEntries = parsed.filter(Boolean);
+      } else {
+        confEntries = [...DEFAULT_CONFERENCES];
+      }
     } catch {
       confEntries = [...DEFAULT_CONFERENCES];
     }
@@ -124,11 +147,11 @@ export function initConferencing() {
           <div class="module-header-strip">
             <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
               <span class="ms-code">REC-0${idx + 1}</span>
-              <span class="phase-tag ${getPhaseTagClass(entry.phase)}">${entry.phase}</span>
-              <span class="ms-dates" style="display: inline;" contenteditable="${isEditingInline}" data-field="date" data-idx="${idx}">${entry.date}</span>
+              <span class="phase-tag ${getPhaseTagClass(entry.phase)}">${escapeHtml(entry.phase)}</span>
+              <span class="ms-dates" style="display: inline;" contenteditable="${isEditingInline}" data-field="date" data-idx="${idx}">${escapeHtml(entry.date)}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="phase-tag ${getStatusTagClass(entry.status)}">${entry.status}</span>
+              <span class="phase-tag ${getStatusTagClass(entry.status)}">${escapeHtml(entry.status)}</span>
               <button type="button" class="btn-remove-conf tactile-action-btn danger" data-delete-idx="${idx}" title="Remove this calibration record">
                 <span>Remove</span>
               </button>
@@ -140,12 +163,12 @@ export function initConferencing() {
               <div class="hex-screw"></div>
               <div class="plate-text-group">
                 <span class="plate-title">INSPECTION CHECKPOINT // MODEL GP-2804</span>
-                <span class="plate-serial">CAL-REC-0${idx + 1} // PHASE: ${entry.phase.toUpperCase()} // STATUS: ${entry.status.toUpperCase()}</span>
+                <span class="plate-serial">CAL-REC-0${idx + 1} // PHASE: ${escapeHtml(entry.phase).toUpperCase()} // STATUS: ${escapeHtml(entry.status).toUpperCase()}</span>
               </div>
               <div class="hex-screw"></div>
             </div>
 
-            <h3 class="conf-log-title" contenteditable="${isEditingInline}" data-field="title" data-idx="${idx}">${entry.title}</h3>
+            <h3 class="conf-log-title" contenteditable="${isEditingInline}" data-field="title" data-idx="${idx}">${escapeHtml(entry.title)}</h3>
 
             <div class="rule-double-brass thin with-diamond"></div>
 
@@ -154,7 +177,7 @@ export function initConferencing() {
                 <span>TEACHER FEEDBACK &amp; OBSERVATIONS</span>
                 ${isEditingInline ? '<span class="glow-cyan">[INLINE EDIT ACTIVE]</span>' : ''}
               </div>
-              <div class="conf-box-text" contenteditable="${isEditingInline}" data-field="feedback" data-idx="${idx}">${entry.feedback}</div>
+              <div class="conf-box-text" contenteditable="${isEditingInline}" data-field="feedback" data-idx="${idx}">${escapeHtml(entry.feedback)}</div>
             </div>
 
             <div class="vfd-window conf-box">
@@ -162,7 +185,7 @@ export function initConferencing() {
                 <span>STUDENT ACTION ITEMS &amp; NEXT STEPS</span>
                 ${isEditingInline ? '<span class="glow-cyan">[INLINE EDIT ACTIVE]</span>' : ''}
               </div>
-              <div class="conf-box-text" contenteditable="${isEditingInline}" data-field="actions" data-idx="${idx}">${entry.actions}</div>
+              <div class="conf-box-text" contenteditable="${isEditingInline}" data-field="actions" data-idx="${idx}">${escapeHtml(entry.actions)}</div>
             </div>
           </div>
         </article>

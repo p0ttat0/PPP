@@ -1428,25 +1428,56 @@
          ====================================================================== -->
     <section id="view-post3" class="page-view" role="tabpanel" hidden>
       <div class="view-container wide-1440p">
-        <header class="vfd-window vfd-banner-bar">
+        <!-- Top Recessed VFD Banner with Stepped Ziggurat Corner Brackets -->
+        <header class="vfd-window vfd-banner-bar ziggurat-bracket-frame">
+          <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+
           <div class="vfd-banner-left">
-            <span class="vfd-sub-tag">BANK 03 // MASTER CHRONOLOGICAL SCHEDULE (NOV 1, 2026 &ndash; JAN 4, 2027)</span>
+            <div class="banner-tag-row">
+              <span class="vfd-sub-tag">BANK 03 // MASTER CHRONOLOGICAL SCHEDULE (NOV 1, 2026 &ndash; JAN 4, 2027)</span>
+              <span class="engraved-spec-badge">65-DAY RESEARCH &amp; FABRICATION CADENCE</span>
+            </div>
             <h1>POST 3 // GANTT TIMELINE &amp; TASK BREAKDOWN</h1>
             <p>Synchronized 6-milestone research, CAD fabrication, PID loop tuning, and experimental trial schedule</p>
           </div>
 
           <!-- Tactile Phase Filter Selector Controls -->
           <div class="segmented-control-well" role="group" aria-label="Filter Milestones by Project Phase">
-            <button type="button" class="seg-btn gantt-phase-btn active" data-phase-filter="all">All Phases (6)</button>
-            <button type="button" class="seg-btn gantt-phase-btn" data-phase-filter="sr">Secondary Research</button>
-            <button type="button" class="seg-btn amber-mode gantt-phase-btn" data-phase-filter="pr">Primary Research</button>
-            <button type="button" class="seg-btn gantt-phase-btn" data-phase-filter="del">Deliverables</button>
+            <button type="button" class="seg-btn gantt-phase-btn phase-filter-btn active" data-phase-filter="all">All Phases (6)</button>
+            <button type="button" class="seg-btn gantt-phase-btn phase-filter-btn" data-phase-filter="sr">Secondary Research</button>
+            <button type="button" class="seg-btn amber-mode gantt-phase-btn phase-filter-btn" data-phase-filter="pr">Primary Research</button>
+            <button type="button" class="seg-btn gantt-phase-btn phase-filter-btn" data-phase-filter="del">Deliverables</button>
           </div>
         </header>
 
-        <div class="split-1440p-grid">
-          <!-- Left Enclosure: Detailed Task Breakdown Table -->
-          <article class="chassis-module" style="display: flex; flex-direction: column;">
+        <!-- 1080p & 1440p Guaranteed Desktop Side-by-Side Split Viewport Grid -->
+        <div class="split-1440p-grid post3-split-grid gantt-grid">
+          <!-- Left Enclosure: Detailed Task Breakdown Table (~45% Grid Column) -->
+          <article class="chassis-module task-breakdown-col schedule-matrix-col ziggurat-bracket-frame" style="display: flex; flex-direction: column;">
+            <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+
             <div class="module-header-strip">
               <div class="module-header-left">
                 <span class="module-index-tag">LOG TABLE</span>
@@ -1454,14 +1485,37 @@
               </div>
               <div class="module-header-right">
                 <span>HOVER ROW TO TRACE GANTT BAR</span>
+                <span class="vent-slits" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
               </div>
             </div>
-            <div style="flex: 1;">
+
+            <!-- Machined Serial Nameplate -->
+            <div class="dossier-plate-flank" style="padding: 14px 18px 0;">
+              <div class="engraved-serial-plate serial-plate-aluminum">
+                <div class="hex-screw"></div>
+                <div class="plate-text-group">
+                  <span class="plate-title">MASTER RESEARCH &amp; FABRICATION LEDGER</span>
+                  <span class="plate-serial">SER: GNT-65D-2026-2027 // 6 MILESTONES // GP-2804</span>
+                </div>
+                <div class="hex-screw"></div>
+              </div>
+            </div>
+
+            <div style="padding: 10px 18px 0;">
+              <div class="speed-lines-horizontal" style="margin-bottom: 8px;">
+                <span class="speed-line"></span>
+                <span class="speed-line"></span>
+                <span class="speed-line"></span>
+              </div>
+              <div class="rule-double-brass with-diamond thin"></div>
+            </div>
+
+            <div style="flex: 1; padding: 12px 18px 18px;">
               <table class="milestone-table">
                 <thead>
                   <tr>
-                    <th style="width: 37%;">Milestone &amp; Date Window</th>
-                    <th style="width: 63%;">Task Description</th>
+                    <th style="width: 42%;">Milestone &amp; Date Window</th>
+                    <th style="width: 58%;">Task Description</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1470,6 +1524,7 @@
                       <div class="ms-header-line">
                         <span class="ms-code">MS-01</span>
                         <span class="phase-tag phase-sr">Secondary Research</span>
+                        <span class="phosphor-status-pill lit-cyan">COMPLETED</span>
                       </div>
                       <span class="ms-title">Initial Research &amp; Documentation</span>
                       <span class="ms-dates">Nov 1, 2026 &ndash; Nov 6, 2026</span>
@@ -1481,6 +1536,7 @@
                       <div class="ms-header-line">
                         <span class="ms-code">MS-02</span>
                         <span class="phase-tag phase-sr">Secondary Research</span>
+                        <span class="phosphor-status-pill lit-cyan">COMPLETED</span>
                       </div>
                       <span class="ms-title">Analyze Math &amp; Finalize Hardware</span>
                       <span class="ms-dates">Nov 7, 2026 &ndash; Nov 15, 2026</span>
@@ -1492,6 +1548,7 @@
                       <div class="ms-header-line">
                         <span class="ms-code">MS-03</span>
                         <span class="phase-tag phase-pr">Primary Research</span>
+                        <span class="phosphor-status-pill lit-amber">IN PROGRESS</span>
                       </div>
                       <span class="ms-title">Draft CAD &amp; 3D Printing</span>
                       <span class="ms-dates">Nov 16, 2026 &ndash; Nov 22, 2026</span>
@@ -1503,6 +1560,7 @@
                       <div class="ms-header-line">
                         <span class="ms-code">MS-04</span>
                         <span class="phase-tag phase-pr">Primary Research</span>
+                        <span class="phosphor-status-pill lit-amber">SCHEDULED</span>
                       </div>
                       <span class="ms-title">Solder, Wire &amp; Code PID</span>
                       <span class="ms-dates">Nov 23, 2026 &ndash; Dec 6, 2026</span>
@@ -1514,6 +1572,7 @@
                       <div class="ms-header-line">
                         <span class="ms-code">MS-05</span>
                         <span class="phase-tag phase-pr">Primary Research</span>
+                        <span class="phosphor-status-pill lit-amber">SCHEDULED</span>
                       </div>
                       <span class="ms-title">Precession Experiments &amp; Video</span>
                       <span class="ms-dates">Dec 7, 2026 &ndash; Dec 18, 2026</span>
@@ -1525,6 +1584,7 @@
                       <div class="ms-header-line">
                         <span class="ms-code">MS-06</span>
                         <span class="phase-tag phase-del">Deliverables</span>
+                        <span class="phosphor-status-pill lit-emerald">SCHEDULED</span>
                       </div>
                       <span class="ms-title">Data Analysis &amp; Trifold Design</span>
                       <span class="ms-dates">Dec 19, 2026 &ndash; Jan 4, 2027</span>
@@ -1536,8 +1596,21 @@
             </div>
           </article>
 
-          <!-- Right Enclosure: Recessed VFD Mermaid Gantt Screen -->
-          <article class="chassis-module" style="display: flex; flex-direction: column;">
+          <!-- Right Enclosure: Recessed Smoked-Glass VFD Mermaid Gantt Screen (~55% Grid Column) -->
+          <article class="chassis-module gantt-col ziggurat-bracket-frame" style="display: flex; flex-direction: column;">
+            <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+
             <div class="module-header-strip">
               <div class="module-header-left">
                 <span class="module-index-tag amber">VFD PLOTTER</span>
@@ -1545,9 +1618,33 @@
               </div>
               <div class="module-header-right">
                 <span>GRID: 7 DAYS/DIV // 65 DAYS TOTAL</span>
+                <span class="vent-slits" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
               </div>
             </div>
-            <div class="vfd-window gantt-vfd-screen">
+
+            <!-- Machined Brass Serial Nameplate -->
+            <div class="dossier-plate-flank" style="padding: 14px 18px 0;">
+              <div class="engraved-serial-plate serial-plate-brass">
+                <div class="hex-screw"></div>
+                <div class="plate-text-group">
+                  <span class="plate-title">CHRONOLOGICAL OSCILLOGRAPH &amp; TIMELINE</span>
+                  <span class="plate-serial">CH-03 // PHOSPHOR TRACE // CALIBRATED NOV 1 - JAN 4</span>
+                </div>
+                <div class="hex-screw"></div>
+              </div>
+            </div>
+
+            <div style="padding: 10px 18px 0;">
+              <div class="speed-lines-horizontal" style="margin-bottom: 8px;">
+                <span class="speed-line"></span>
+                <span class="speed-line"></span>
+                <span class="speed-line"></span>
+              </div>
+              <div class="rule-double-brass with-diamond thin"></div>
+            </div>
+
+            <!-- Smoked-Glass Instrument Bay -->
+            <div class="vfd-window gantt-vfd-screen smoked-glass-bay">
               <div id="gantt-container"></div>
             </div>
           </article>

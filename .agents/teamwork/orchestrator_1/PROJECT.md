@@ -74,8 +74,8 @@
 | M1 | Design System & Aesthetic Foundation | CSS tokens, typography `<link>`, procedural SVG micro-grain filters, stepped ziggurat brackets, double brass rules, triple speed-lines, serial nameplates, spring-loaded keycaps, 3D rocker switch, linear brass rheostat fader | none | DONE |
 | M2 | The Gyro-Triptych Observatory Centerpiece | Overhaul `#view-home`: circular/octagonal Astrolabe & Oscilloscope chamber, 4 animated mechanical/signal layers, dynamic momentum & torque vectors, live VFD equation counters, tactile controls | M1 | DONE |
 | M3 | Asymmetric Posts 1 & 2 + Conferencing Logbook | Post 1 Architectural Dossier & Instrument Bays (100% verbatim prose); Post 2 Hypothesis Conduit, 6 candidate ledger, Gemini ROM link; Conferencing Logbook CRUD & inline note editing (`ppp_conferencing_entries_v1`) | M1 | DONE |
-| M4 | Post 3 Gantt Split Layout & Mermaid.js v10 | Post 3 side-by-side split layout on 1080p and 1440p, 6-milestone schedule (Nov 1, 2026 – Jan 4, 2027), 0 negative rect widths, 0 overlapping text boxes, phosphor styling, bidirectional hover, phase switches | M1 | IN_PROGRESS |
-| M5 | Final Milestone: Pass 100% E2E Tests & Adversarial Hardening | Phase 1: Pass 100% of E2E test suite (Tiers 1-4). Phase 2: Adversarial coverage hardening (Tier 5) with Challengers and Reviewers. Forensic Integrity Audit. | M2, M3, M4, E2E | PLANNED |
+| M4 | Post 3 Gantt Split Layout & Mermaid.js v10 | Post 3 side-by-side split layout on 1080p and 1440p, 6-milestone schedule (Nov 1, 2026 – Jan 4, 2027), 0 negative rect widths, 0 overlapping text boxes, phosphor styling, bidirectional hover, phase switches | M1 | DONE |
+| M5 | Final Milestone: Pass 100% E2E Tests & Adversarial Hardening | Phase 1: Pass 100% of E2E test suite (Tiers 1-4). Phase 2: Adversarial coverage hardening (Tier 5) with Challengers and Reviewers. Forensic Integrity Audit. | M2, M3, M4, E2E | DONE |
 
 ---
 

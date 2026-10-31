@@ -1013,61 +1013,102 @@
 /* ==========================================================================
    PAGE 3: POST 3 // 1440P SPLIT-VIEW GANTT & MILESTONE BREAKDOWN
    ========================================================================== */
-.split-1440p-grid {
+.split-1440p-grid,
+.post3-split-grid,
+.gantt-grid {
   display: grid;
-  grid-template-columns: minmax(640px, 45%) minmax(740px, 55%);
+  grid-template-columns: minmax(500px, 1fr) minmax(580px, 1.18fr);
   gap: 24px;
   align-items: stretch;
 }
 
+.task-breakdown-col {
+  position: relative;
+}
+
+.gantt-col {
+  position: relative;
+}
+
 .milestone-table {
   width: 100%;
-  height: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
   text-align: left;
 }
 
-.milestone-table thead {
-  background-color: #12151b;
-  border-bottom: 1px solid var(--abs-border-strong);
+.milestone-table thead tr {
+  background: linear-gradient(180deg, #1d232f 0%, #12151c 100%);
 }
 
 .milestone-table th {
   padding: 12px 18px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.76rem;
-  color: var(--vfd-amber);
-  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  color: var(--brass-bright);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.milestone-table td {
-  padding: 14px 18px;
-  border-bottom: 1px solid #252b35;
-  vertical-align: top;
-  font-size: 0.89rem;
-  transition: background-color 0.14s ease;
-}
-
-.milestone-table tbody tr:last-child td {
-  border-bottom: none;
+  border-bottom: 2px solid var(--brass-primary);
 }
 
 .milestone-table tbody tr.ms-row {
   cursor: pointer;
+  background: linear-gradient(180deg, #151922 0%, #0e1117 100%);
+  border: 1px solid #232c3a;
+  box-shadow: var(--shadow-recessed-well);
+  transition: all 0.18s ease;
+}
+
+.milestone-table tbody tr.ms-row td {
+  padding: 14px 18px;
+  vertical-align: top;
+  font-size: 0.89rem;
+  border-top: 1px solid #232c3a;
+  border-bottom: 1px solid #161c24;
+}
+
+.milestone-table tbody tr.ms-row td:first-child {
+  border-left: 3px solid transparent;
+  border-top-left-radius: var(--radius-control);
+  border-bottom-left-radius: var(--radius-control);
+}
+
+.milestone-table tbody tr.ms-row td:last-child {
+  border-top-right-radius: var(--radius-control);
+  border-bottom-right-radius: var(--radius-control);
 }
 
 .milestone-table tbody tr.ms-row:hover,
 .milestone-table tbody tr.ms-row.highlighted {
-  background-color: rgba(0, 240, 208, 0.085);
+  background: linear-gradient(180deg, #1c222e 0%, #131720 100%);
+  border-color: var(--brass-primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 12px rgba(212, 168, 83, 0.15);
+}
+
+.milestone-table tbody tr.ms-row.highlighted td:first-child {
+  border-left-color: var(--vfd-cyan);
+}
+
+.milestone-table tbody tr.ms-row[data-phase-group="pr"].highlighted td:first-child {
+  border-left-color: var(--vfd-amber);
+}
+
+.milestone-table tbody tr.ms-row[data-phase-group="del"].highlighted td:first-child {
+  border-left-color: var(--vfd-emerald);
+}
+
+.milestone-table tbody tr.ms-row.dimmed-phase {
+  opacity: 0.28 !important;
+  filter: grayscale(0.5);
 }
 
 .ms-header-line {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .ms-code {
@@ -1080,13 +1121,45 @@
   padding: 2px 7px;
 }
 
+.phosphor-status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.phosphor-status-pill.lit-cyan {
+  color: var(--vfd-cyan);
+  background: rgba(0, 240, 208, 0.12);
+  border: 1px solid rgba(0, 240, 208, 0.45);
+  box-shadow: 0 0 8px rgba(0, 240, 208, 0.25);
+}
+
+.phosphor-status-pill.lit-amber {
+  color: var(--vfd-amber);
+  background: rgba(255, 159, 28, 0.12);
+  border: 1px solid rgba(255, 159, 28, 0.45);
+  box-shadow: 0 0 8px rgba(255, 159, 28, 0.25);
+}
+
+.phosphor-status-pill.lit-emerald {
+  color: var(--vfd-emerald);
+  background: rgba(46, 229, 125, 0.12);
+  border: 1px solid rgba(46, 229, 125, 0.45);
+  box-shadow: 0 0 8px rgba(46, 229, 125, 0.25);
+}
+
 .ms-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.96rem;
+  font-size: 0.98rem;
   color: var(--ink-primary);
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .ms-dates {
@@ -1098,7 +1171,7 @@
 
 .ms-desc {
   color: var(--ink-secondary);
-  line-height: 1.56;
+  line-height: 1.58;
 }
 
 .gantt-vfd-screen {
@@ -1111,9 +1184,40 @@
   border-radius: var(--radius-module);
 }
 
+.smoked-glass-bay {
+  background: radial-gradient(circle at center, #0a0e13 0%, #05070a 100%);
+  border: 1.5px solid #1a2533;
+  box-shadow:
+    inset 0 4px 20px rgba(0, 0, 0, 0.95),
+    inset 0 0 30px rgba(0, 240, 208, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.smoked-glass-bay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 240, 208, 0.015) 0px,
+    rgba(0, 240, 208, 0.015) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
 #gantt-container {
   width: 100%;
   display: block;
+  position: relative;
+  z-index: 2;
 }
 
 #gantt-container svg {
@@ -1263,8 +1367,10 @@
 /* ==========================================================================
    RESPONSIVE BREAKPOINTS (1080P & 1440P MULTI-VIEWPORT VERIFICATION)
    ========================================================================== */
-@media (max-width: 1480px) {
-  .split-1440p-grid {
+@media (max-width: 1080px) {
+  .split-1440p-grid,
+  .post3-split-grid,
+  .gantt-grid {
     grid-template-columns: 1fr;
   }
 }
