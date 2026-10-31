@@ -107,23 +107,47 @@ export function initConferencing() {
     container.innerHTML = confEntries
       .map(
         (entry, idx) => `
-        <article class="chassis-module" data-idx="${idx}">
+        <article class="chassis-module calibration-log-card ziggurat-bracket-frame" data-idx="${idx}">
+          <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+
           <div class="module-header-strip">
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
               <span class="ms-code">REC-0${idx + 1}</span>
               <span class="phase-tag ${getPhaseTagClass(entry.phase)}">${entry.phase}</span>
               <span class="ms-dates" style="display: inline;" contenteditable="${isEditingInline}" data-field="date" data-idx="${idx}">${entry.date}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
               <span class="phase-tag ${getStatusTagClass(entry.status)}">${entry.status}</span>
-              <button type="button" class="btn-remove-conf" data-delete-idx="${idx}" title="Remove this conference entry">
+              <button type="button" class="btn-remove-conf tactile-action-btn danger" data-delete-idx="${idx}" title="Remove this calibration record">
                 <span>Remove</span>
               </button>
             </div>
           </div>
 
           <div class="conf-log-body">
+            <div class="engraved-serial-plate" style="margin-bottom: 8px;">
+              <div class="hex-screw"></div>
+              <div class="plate-text-group">
+                <span class="plate-title">INSPECTION CHECKPOINT // MODEL GP-2804</span>
+                <span class="plate-serial">CAL-REC-0${idx + 1} // PHASE: ${entry.phase.toUpperCase()} // STATUS: ${entry.status.toUpperCase()}</span>
+              </div>
+              <div class="hex-screw"></div>
+            </div>
+
             <h3 class="conf-log-title" contenteditable="${isEditingInline}" data-field="title" data-idx="${idx}">${entry.title}</h3>
+
+            <div class="rule-double-brass thin with-diamond"></div>
 
             <div class="vfd-window conf-box">
               <div class="conf-box-label">
@@ -160,7 +184,15 @@ export function initConferencing() {
         const idx = Number(el.dataset.idx);
         const field = el.dataset.field;
         if (confEntries[idx] && field) {
-          confEntries[idx][field] = el.innerText.trim();
+          let val = el.innerText.trim();
+          if (!val) {
+            if (field === 'title') val = `Checkpoint ${idx + 1}: Calibration Review`;
+            else if (field === 'date') val = 'Nov 2026';
+            else if (field === 'feedback') val = '[No feedback recorded]';
+            else if (field === 'actions') val = '[No action items logged]';
+            el.innerText = val;
+          }
+          confEntries[idx][field] = val;
           saveConferences();
         }
       });

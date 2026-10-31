@@ -21,7 +21,7 @@ Overhaul Physics Passion Project into Deco-Lectronic Atelier (Art Deco × Stream
 - **Delivered results**: none
 
 ## Project Status
-- **Phase**: in progress (Milestone 1 PASSED; Milestone 2 active: worker_m2 dispatched for Gyro-Triptych Observatory Centerpiece)
+- **Phase**: in progress (Milestones 1, 2 & 3 PASSED; Milestone 4 active: worker_m4 dispatched for Post 3 Gantt Split Layout & Mermaid.js v10)
 - **Routing Decision**: General path -> teamwork_preview_orchestrator (spawned conversation ef814faf-9ab9-4637-aad1-889fec0d7418)
 - **Crons Active**:
   - Cron 1 (Progress Reporting, `*/8 * * * *`): task-14
