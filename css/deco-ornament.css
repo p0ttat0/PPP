@@ -1,0 +1,420 @@
+/* ==========================================================================
+   DECO ORNAMENTATION & ARCHITECTURAL FRAMING // DECO-LECTRONIC ATELIER
+   Art Deco (1925-1939) × Streamline Moderne (1930s-1940s) Geometric Systems
+   ========================================================================== */
+
+/* ==========================================================================
+   1. STEPPED ART DECO ZIGGURAT CORNER BRACKETS & PANELS
+   ========================================================================== */
+
+/* Container for Frame with SVG Ziggurat Corner Brackets */
+.ziggurat-bracket-frame {
+  position: relative;
+  background-color: var(--chassis-slate-base);
+  border: 1px solid var(--chassis-slate-lip);
+  border-radius: var(--radius-module);
+  padding: 18px;
+  box-shadow: var(--shadow-chassis-heavy);
+}
+
+.ziggurat-bracket-frame .zig-bracket {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ziggurat-bracket-frame .zig-bracket.zig-tl {
+  top: -1px;
+  left: -1px;
+}
+
+.ziggurat-bracket-frame .zig-bracket.zig-tr {
+  top: -1px;
+  right: -1px;
+}
+
+.ziggurat-bracket-frame .zig-bracket.zig-bl {
+  bottom: -1px;
+  left: -1px;
+}
+
+.ziggurat-bracket-frame .zig-bracket.zig-br {
+  bottom: -1px;
+  right: -1px;
+}
+
+/* Pure CSS Stepped Art Deco Clip-Path Panel */
+.deco-ziggurat-panel {
+  position: relative;
+  background: linear-gradient(180deg, var(--chassis-slate-surface) 0%, var(--chassis-slate-base) 100%);
+  border: 1px solid var(--brass-deep);
+  clip-path: polygon(
+    /* Top edge & top-right stepped terrace */
+    0% 12px, 4px 12px, 4px 6px, 12px 6px, 12px 0%,
+    calc(100% - 12px) 0%, calc(100% - 12px) 6px, calc(100% - 4px) 6px, calc(100% - 4px) 12px, 100% 12px,
+    /* Right edge & bottom-right stepped terrace */
+    100% calc(100% - 12px), calc(100% - 4px) calc(100% - 12px), calc(100% - 4px) calc(100% - 6px), calc(100% - 12px) calc(100% - 6px), calc(100% - 12px) 100%,
+    /* Bottom edge & bottom-left stepped terrace */
+    12px 100%, 12px calc(100% - 6px), 4px calc(100% - 6px), 4px calc(100% - 12px), 0% calc(100% - 12px)
+  );
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+  padding: 20px;
+}
+
+/* Art Deco Pedestal / Plinth Base */
+.deco-plinth {
+  position: relative;
+  border-top: 2px solid var(--brass-primary);
+  border-bottom: 2px solid var(--brass-dark);
+  background: linear-gradient(180deg, #1b2029 0%, #111419 100%);
+  padding: 12px 20px;
+  box-shadow:
+    inset 0 1px 0 rgba(247, 223, 158, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.deco-plinth::before,
+.deco-plinth::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 6px;
+  background: var(--brass-primary);
+}
+
+.deco-plinth::before {
+  left: 0;
+  clip-path: polygon(0 0, 100% 4px, 100% calc(100% - 4px), 0 100%);
+}
+
+.deco-plinth::after {
+  right: 0;
+  clip-path: polygon(0 4px, 100% 0, 100% 100%, 0 calc(100% - 4px));
+}
+
+/* ==========================================================================
+   2. DOUBLE-LINE BRASS / GOLD DIVISION RULES
+   ========================================================================== */
+
+/* Authoritative Double Brass Divider */
+.rule-double-brass {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  border-top: 1.5px solid var(--brass-primary);
+  border-bottom: 1.5px solid var(--brass-deep);
+  margin: 18px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  background: transparent;
+}
+
+/* Center Art Deco Diamond Break */
+.rule-double-brass.with-diamond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rule-double-brass.with-diamond::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background-color: var(--brass-bright);
+  border: 1px solid var(--chassis-cast-iron);
+  box-shadow: 0 0 6px var(--brass-glow);
+  z-index: 1;
+}
+
+/* Inset Mask to prevent double border lines passing through diamond */
+.rule-double-brass.with-diamond::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  background-color: inherit;
+  z-index: 0;
+}
+
+/* Double Brass Rule Color Variations */
+.rule-double-brass.rule-slate {
+  border-top-color: var(--chassis-slate-lip);
+  border-bottom-color: var(--chassis-slate-dark);
+}
+
+.rule-double-brass.rule-cyan {
+  border-top-color: var(--vfd-cyan);
+  border-bottom-color: rgba(0, 240, 208, 0.4);
+  box-shadow: 0 0 8px rgba(0, 240, 208, 0.25);
+}
+
+.rule-double-brass.rule-amber {
+  border-top-color: var(--vfd-amber);
+  border-bottom-color: rgba(255, 159, 28, 0.4);
+  box-shadow: 0 0 8px rgba(255, 159, 28, 0.25);
+}
+
+/* Thin Compact Double Rule */
+.rule-double-brass.thin {
+  height: 4px;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  margin: 10px 0;
+}
+
+/* ==========================================================================
+   3. STREAMLINE MODERNE TRIPLE SPEED-LINES
+   ========================================================================== */
+
+.speed-lines-horizontal {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px 0;
+  width: 100%;
+}
+
+.speed-lines-horizontal .speed-line {
+  display: block;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(90deg, var(--brass-primary) 0%, rgba(212, 168, 83, 0.35) 80%, transparent 100%);
+}
+
+.speed-lines-horizontal .speed-line:nth-child(1) {
+  width: 100%;
+  opacity: 1.0;
+}
+
+.speed-lines-horizontal .speed-line:nth-child(2) {
+  width: 82%;
+  opacity: 0.75;
+}
+
+.speed-lines-horizontal .speed-line:nth-child(3) {
+  width: 56%;
+  opacity: 0.45;
+}
+
+/* Reversed Speed-Lines (Right-Aligned) */
+.speed-lines-horizontal.align-right {
+  align-items: flex-end;
+}
+
+.speed-lines-horizontal.align-right .speed-line {
+  background: linear-gradient(270deg, var(--brass-primary) 0%, rgba(212, 168, 83, 0.35) 80%, transparent 100%);
+}
+
+/* Symmetrical Center-Burst Speed-Lines */
+.speed-lines-horizontal.center-burst {
+  align-items: center;
+}
+
+.speed-lines-horizontal.center-burst .speed-line {
+  background: linear-gradient(90deg, transparent 0%, var(--brass-primary) 50%, transparent 100%);
+}
+
+/* Vertical Streamline Ribs */
+.speed-lines-vertical {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  height: 100%;
+  padding: 0 4px;
+}
+
+.speed-lines-vertical .speed-line {
+  display: block;
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, var(--brass-primary) 0%, rgba(212, 168, 83, 0.3) 80%, transparent 100%);
+}
+
+.speed-lines-vertical .speed-line:nth-child(1) { height: 100%; opacity: 1.0; }
+.speed-lines-vertical .speed-line:nth-child(2) { height: 82%;  opacity: 0.75; }
+.speed-lines-vertical .speed-line:nth-child(3) { height: 56%;  opacity: 0.45; }
+
+/* ==========================================================================
+   4. RADIAL SUNBURST COMPASS TICK STYLING
+   ========================================================================== */
+
+.radial-sunburst-graticule {
+  pointer-events: none;
+  user-select: none;
+}
+
+.radial-sunburst-graticule .sunburst-outer-ring {
+  stroke: var(--brass-primary);
+  stroke-width: 1.8;
+  fill: none;
+}
+
+.radial-sunburst-graticule .sunburst-inner-ring {
+  stroke: var(--brass-deep);
+  stroke-width: 0.8;
+  stroke-dasharray: 2 4;
+  fill: none;
+}
+
+.radial-sunburst-graticule .sunburst-tick-major {
+  stroke: var(--brass-highlight);
+  stroke-width: 2;
+}
+
+.radial-sunburst-graticule .sunburst-tick-mid {
+  stroke: var(--brass-primary);
+  stroke-width: 1.4;
+}
+
+.radial-sunburst-graticule .sunburst-tick-minor {
+  stroke: var(--brass-deep);
+  stroke-width: 0.9;
+  opacity: 0.75;
+}
+
+.radial-sunburst-graticule .sunburst-angle-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  fill: var(--brass-highlight);
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* ==========================================================================
+   5. ENGRAVED BRASS & ALUMINUM SERIAL NAMEPLATES
+   ========================================================================== */
+
+.engraved-serial-plate {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(180deg, #241d13 0%, #15110a 100%);
+  border: 1.5px solid var(--brass-deep);
+  border-radius: var(--radius-control);
+  padding: 6px 16px;
+  box-shadow:
+    inset 0 1px 1px rgba(240, 201, 120, 0.35),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.80),
+    0 4px 10px rgba(0, 0, 0, 0.60);
+  position: relative;
+  user-select: none;
+}
+
+.engraved-serial-plate.serial-plate-aluminum {
+  background: linear-gradient(180deg, #262c36 0%, #15181e 100%);
+  border-color: #3f4a5c;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.8),
+    0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.plate-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.plate-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.94rem;
+  letter-spacing: 0.08em;
+  color: var(--brass-bright);
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  line-height: 1.15;
+}
+
+.engraved-serial-plate.serial-plate-aluminum .plate-title {
+  color: var(--ink-primary);
+}
+
+.plate-serial {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--brass-highlight);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.engraved-serial-plate.serial-plate-aluminum .plate-serial {
+  color: var(--vfd-cyan);
+}
+
+/* Machine Hex Screws on Serial Plates */
+.plate-screw-col {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.plate-hex-screw {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #554428 0%, #20180a 75%);
+  border: 1px solid #0f0c05;
+  box-shadow:
+    inset 0 1px 1px rgba(247, 223, 158, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.plate-hex-screw::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 1px;
+  right: 1px;
+  height: 1px;
+  background-color: #0f0c05;
+  transform: rotate(-35deg);
+}
+
+.engraved-serial-plate.serial-plate-aluminum .plate-hex-screw {
+  background: radial-gradient(circle at 35% 35%, #475366 0%, #161a22 75%);
+  border-color: #0c0e12;
+}
+
+.engraved-serial-plate.serial-plate-aluminum .plate-hex-screw::after {
+  background-color: #0c0e12;
+}
+
+/* Art Deco Stamped Rating Stamp */
+.plate-mil-stamp {
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  padding: 2px 5px;
+  border: 1px solid var(--brass-deep);
+  border-radius: 2px;
+  color: var(--brass-bright);
+  background: rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.06em;
+}
+
+/* ==========================================================================
+   6. ART DECO CHEVRON & CORNER NOTCHES
+   ========================================================================== */
+
+.deco-corner-tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 24px 24px 0;
+  border-color: transparent var(--brass-primary) transparent transparent;
+  filter: drop-shadow(-1px 1px 2px rgba(0, 0, 0, 0.5));
+}

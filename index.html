@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Passion Project // Inertial &amp; Precession Dynamics (GP-2804)</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+
+  <!-- Deliberate 4-Tier Art Deco × Neo-Retro-Futurist Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Federo&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Share+Tech+Mono&family=Silkscreen:wght@400;700&family=Syne:wght@700;800&family=VT323&display=swap" rel="stylesheet">
+
+  <!-- Modular Static Stylesheets -->
+  <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/deco-ornament.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/views.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       PROCEDURAL SVG MICRO-GRAIN FILTERS & OPTICAL SHADERS
+       ======================================================================== -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <!-- 1. Cast Crinkle-Enamel Iron (Heavy Chassis Base) -->
+      <filter id="crinkleEnamelIron" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+        <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" seed="42" result="coarseNoise"/>
+        <feColorMatrix type="matrix" in="coarseNoise" result="crinkleMono"
+          values="0.33 0.33 0.33 0 0
+                  0.33 0.33 0.33 0 0
+                  0.33 0.33 0.33 0 0
+                  0    0    0    0.09 0"/>
+        <feDiffuseLighting in="coarseNoise" lighting-color="#ffffff" surfaceScale="1.4" diffuseConstant="0.8" result="lightBump">
+          <feDistantLight azimuth="55" elevation="65"/>
+        </feDiffuseLighting>
+        <feBlend in="crinkleMono" in2="lightBump" mode="multiply" result="crinkleTex"/>
+        <feComposite in="crinkleTex" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="0.12" k4="0"/>
+      </filter>
+
+      <!-- 2. Phenolic Bakelite Resin (Compression Molding) -->
+      <filter id="phenolicBakelite" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="turbulence" baseFrequency="0.85 0.18" numOctaves="3" seed="17" result="flowNoise"/>
+        <feColorMatrix type="matrix" in="flowNoise" result="amberSepia"
+          values="0.45 0.15 0.05 0 0.10
+                  0.25 0.12 0.02 0 0.06
+                  0.10 0.05 0.01 0 0.02
+                  0    0    0    0.14 0"/>
+        <feBlend in="SourceGraphic" in2="amberSepia" mode="overlay"/>
+      </filter>
+
+      <!-- 3. Matte Textured ABS Housing (Stipple Micro-Grain) -->
+      <filter id="matteABS" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" seed="88" result="stipple"/>
+        <feColorMatrix type="matrix" in="stipple" result="absNoise"
+          values="0.3 0.3 0.3 0 0
+                  0.3 0.3 0.3 0 0
+                  0.3 0.3 0.3 0 0
+                  0   0   0   0.06 0"/>
+        <feBlend in="SourceGraphic" in2="absNoise" mode="overlay"/>
+      </filter>
+
+      <!-- 4. Brushed Brass Trim & Bezel Lustre -->
+      <filter id="brushedBrass" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.95" numOctaves="2" seed="9" result="brushedGrain"/>
+        <feColorMatrix type="matrix" in="brushedGrain" result="metallicGrain"
+          values="0.75 0.55 0.20 0 0
+                  0.60 0.45 0.15 0 0
+                  0.20 0.15 0.05 0 0
+                  0    0    0    0.20 0"/>
+        <feBlend in="SourceGraphic" in2="metallicGrain" mode="color-dodge"/>
+      </filter>
+
+      <!-- 5. Phosphor CRT / VFD Bloom Glow -->
+      <filter id="vfdPhosphorBloom" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="2.2" result="tightGlow"/>
+        <feGaussianBlur stdDeviation="6.5" result="broadBloom"/>
+        <feMerge>
+          <feMergeNode in="broadBloom"/>
+          <feMergeNode in="tightGlow"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- ========================================================================
+       MOLDED INSTRUMENT CONSOLE HEADER & TACTILE BANK SELECTOR KEYS
+       ======================================================================== -->
+  <header class="instrument-rack-header" role="banner">
+    <div class="rack-brand" data-target="home" role="button" tabindex="0" aria-label="Return to Home Console">
+      <div class="rack-screw-col" aria-hidden="true">
+        <span class="hex-screw"></span>
+        <span class="hex-screw"></span>
+      </div>
+      <div class="nameplate-box">
+        <span class="nameplate-model">MODEL GP-2804 // INERTIAL DYNAMICS ANALYZER</span>
+        <span class="nameplate-title">Physics Passion Project</span>
+      </div>
+    </div>
+
+    <!-- Physical Interlocking Pushbutton Switch Well -->
+    <nav aria-label="Primary Instrument Views">
+      <ul class="bank-switch-group" role="tablist">
+        <li role="presentation">
+          <button type="button" class="bank-btn active" role="tab" aria-selected="true" data-target="home">
+            <span class="btn-led" aria-hidden="true"></span>
+            <span>Home</span>
+          </button>
+        </li>
+        <li role="presentation">
+          <button type="button" class="bank-btn" role="tab" aria-selected="false" data-target="post1">
+            <span class="btn-led" aria-hidden="true"></span>
+            <span>Post 1</span>
+          </button>
+        </li>
+        <li role="presentation">
+          <button type="button" class="bank-btn" role="tab" aria-selected="false" data-target="post2">
+            <span class="btn-led" aria-hidden="true"></span>
+            <span>Post 2</span>
+          </button>
+        </li>
+        <li role="presentation">
+          <button type="button" class="bank-btn" role="tab" aria-selected="false" data-target="post3">
+            <span class="btn-led" aria-hidden="true"></span>
+            <span>Post 3</span>
+          </button>
+        </li>
+        <li role="presentation">
+          <button type="button" class="bank-btn tab-conf" role="tab" aria-selected="false" data-target="conferencing">
+            <span class="btn-led" aria-hidden="true"></span>
+            <span>Conferencing</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Recessed Optical VFD Status Display -->
+    <div class="vfd-window rack-vfd-readout" aria-label="Live Hardware Telemetry Readout">
+      <div class="vfd-cell">
+        <span class="vfd-cell-label">ROTOR DRIVE</span>
+        <span id="header-rotor-val" class="vfd-cell-val glow-cyan">2400 RPM // OUTER</span>
+      </div>
+      <div class="vfd-cell">
+        <span class="vfd-cell-label">SCHEDULE SPAN</span>
+        <span class="vfd-cell-val glow-amber">NOV 26 - JAN 27</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN INSTRUMENT WORKSPACE
+       ======================================================================== -->
+  <main class="workspace">
+
+    <!-- ======================================================================
+         PAGE 0: HOME // BENCHTOP ANALYZER & INTERACTIVE VECTOR OSCILLOSCOPE
+         ====================================================================== -->
+    <section id="view-home" class="page-view active" role="tabpanel" aria-labelledby="tab-home">
+      <div class="view-container wide-1440p">
+
+        <!-- Top Recessed VFD Banner -->
+        <header class="vfd-window vfd-banner-bar">
+          <div class="vfd-banner-left">
+            <span class="vfd-sub-tag">EXPERIMENTAL DYNAMICS // DECO-LECTRONIC ATELIER</span>
+            <h1>THE GYRO-TRIPTYCH OBSERVATORY</h1>
+            <p>Investigating how radial mass distribution governs rotational inertia (I) and gyroscopic precession angular velocity (&Omega;<sub>p</sub>)</p>
+          </div>
+          <div class="annunciator-grid" aria-label="Subsystem Status Indicators">
+            <span id="annun-foc" class="annunciator-lamp lit-cyan">FOC LOOP: ARMED</span>
+            <span id="annun-imu" class="annunciator-lamp lit-amber">IMU: ICM-20948</span>
+            <span id="annun-enc" class="annunciator-lamp lit-cyan">ENC: MT6701 14-BIT</span>
+            <span id="annun-motion" class="annunciator-lamp lit-emerald">ROTOR: SPINNING</span>
+          </div>
+        </header>
+
+        <!-- The Gyro-Triptych Observatory Chamber Grid -->
+        <div class="gyro-triptych-grid home-bench-grid">
+
+          <!-- West Wing: Governing Mechanics & Experimental Thesis -->
+          <article class="chassis-module observatory-west-wing ziggurat-bracket-frame" style="display: flex; flex-direction: column;">
+            <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag">UNIT 01</span>
+                <span class="module-title-text">Governing Mechanics &amp; Thesis</span>
+              </div>
+              <div class="module-header-right">
+                <span>MASS CONST: M = 0.160 kg</span>
+                <span class="vent-slits" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+              </div>
+            </div>
+
+            <div class="bench-left-body">
+              <!-- Stepped Art Deco Ziggurat Plinth with Double Brass Rules -->
+              <div class="deco-plinth ziggurat-thesis-plinth">
+                <div class="rule-double-brass with-diamond"></div>
+                <h2 class="silk-heading">Radial Mass Shift &amp; Precession Rate</h2>
+                <p class="silk-prose">
+                  This investigation measures how altering a spinning rotor's radial mass distribution changes its gyroscopic precession speed. By relocating six stainless steel machine screws and weighted washers from the inner hub (r = 36mm) to the outer rim (r = 68mm) of a 3D-printed reaction wheel spun at constant angular velocity, total gravitational mass (<strong>M = 160g</strong>) and gravitational torque (<strong>&tau; = 0.048 N&middot;m</strong>) remain strictly constant while moment of inertia (<strong>I</strong>) surges quadratically by <strong>+93.1%</strong>.
+                </p>
+                <div class="rule-double-brass with-diamond"></div>
+              </div>
+
+              <!-- Recessed VFD Primary Driving Question Plinth -->
+              <div class="vfd-window vfd-question-display">
+                <div class="vq-header">
+                  <span class="glow-amber">PRIMARY DRIVING QUESTION // HYPOTHESIS LOCK</span>
+                  <span style="color: var(--ink-muted);">REF: CAND-05</span>
+                </div>
+                <div class="vq-text">"How does shifting a spinning wheel's mass toward its outer rim change how fast it precesses?"</div>
+              </div>
+
+              <!-- Dual Recessed VFD Digital Equation Counters -->
+              <div class="counter-pair-grid">
+                <div class="vfd-window counter-box">
+                  <span class="cb-label">CH-A // MOMENT OF INERTIA</span>
+                  <div class="cb-eq glow-cyan">I = I<sub>0</sub> + &Sigma; m<sub>i</sub>r<sub>i</sub><sup>2</sup></div>
+                  <div id="readout-inertia" class="pixel-readout glow-cyan" style="font-size: 0.72rem; margin-bottom: 6px;"><span id="vfd-inertia-val">I = 2.48e-4 kg&middot;m&sup2;</span></div>
+                  <span class="cb-note">Outward screw shift (&Delta;r = +32mm) scales rotational inertia quadratically.</span>
+                </div>
+                <div class="vfd-window counter-box">
+                  <span class="cb-label">CH-B // PRECESSION VELOCITY</span>
+                  <div class="cb-eq glow-amber">&Omega;<sub>p</sub> = &tau; / (I &times; &omega;)</div>
+                  <div id="readout-precession" class="pixel-readout glow-amber" style="font-size: 0.72rem; margin-bottom: 6px;"><span id="vfd-precession-val">&Omega;_p = 0.77 rad/s</span></div>
+                  <span class="cb-note">Higher inertia I at constant spin &omega; yields slower precession &Omega;<sub>p</sub>.</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Central Chamber: Astrolabe & Vector Oscilloscope -->
+          <article class="chassis-module observatory-central-chamber with-brass-bezel ziggurat-bracket-frame" style="display: flex; flex-direction: column;">
+            <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag amber">ASTROLABE SCOPE</span>
+                <span class="module-title-text">Reaction Wheel Astrolabe &amp; 3D Precession Chamber</span>
+              </div>
+              <div class="module-header-right">
+                <span>SCALE: 10 MM/DIV</span>
+                <span class="vent-slits" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+              </div>
+            </div>
+
+            <div class="scope-bezel-wrap">
+              <!-- Recessed Smoked-Glass CRT Vector Graticule Screen -->
+              <div class="vfd-window crt-screen">
+                <svg id="scope-graticule-svg" class="scope-graticule-svg" viewBox="0 0 1080 480" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gyro-Triptych Astrolabe and Vector Oscilloscope Chamber">
+                  <defs>
+                    <filter id="phosphorGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+                      <feMerge>
+                        <feMergeNode in="blur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="vectorAmberGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#ff9f1c" flood-opacity="0.65"/>
+                    </filter>
+                    <filter id="vectorCyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#00f0d0" flood-opacity="0.65"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Oscilloscope Outer Border & Partition Graticule Lines -->
+                  <rect x="8" y="8" width="1064" height="464" rx="6" stroke="#153833" stroke-width="1.5"/>
+                  <line x1="440" y1="10" x2="440" y2="470" stroke="#153833" stroke-width="1.2" stroke-dasharray="6 4"/>
+                  <line x1="640" y1="10" x2="640" y2="470" stroke="#153833" stroke-width="1.2" stroke-dasharray="6 4"/>
+                  <line x1="10" y1="240" x2="1070" y2="240" stroke="#0e2623" stroke-width="1" stroke-dasharray="3 3"/>
+
+                  <!-- Sub-division ticks on chamber perimeter -->
+                  <line x1="240" y1="8" x2="240" y2="16" stroke="#153833" stroke-width="1.5"/>
+                  <line x1="240" y1="464" x2="240" y2="472" stroke="#153833" stroke-width="1.5"/>
+                  <line x1="840" y1="8" x2="840" y2="16" stroke="#153833" stroke-width="1.5"/>
+                  <line x1="840" y1="464" x2="840" y2="472" stroke="#153833" stroke-width="1.5"/>
+
+                  <!-- ==========================================================
+                       LEFT BAY (CH1): ORTHOGRAPHIC REACTION WHEEL ASTROLABE
+                       ========================================================== -->
+                  <text x="24" y="32" fill="#00f0d0" font-family="Silkscreen, monospace" font-size="11" letter-spacing="0.08em">CH1 // REACTION WHEEL ASTROLABE</text>
+                  <text x="24" y="48" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="10.5">ORTHOGRAPHIC ROTOR // 6-SPOKE M3 GUIDE TRACKS</text>
+
+                  <!-- Astrolabe Center Crosshairs (cx=240, cy=240) -->
+                  <line x1="100" y1="240" x2="380" y2="240" stroke="#153833" stroke-width="1"/>
+                  <line x1="240" y1="100" x2="240" y2="380" stroke="#153833" stroke-width="1"/>
+
+                  <!-- Outer Sunburst Degree Compass Ring & Radial 15° Ticks (r=114 to 120) -->
+                  <circle cx="240" cy="240" r="114" stroke="#153833" stroke-width="1" stroke-dasharray="2 4"/>
+                  <g class="astrolabe-compass-ticks" stroke="#1d4a43" stroke-width="1">
+                    <!-- 0°, 15°, 30°, 45°, 60°, 75°, 90°, 105°, 120°, 135°, 150°, 165°, 180°, ... -->
+                    <line x1="354" y1="240" x2="364" y2="240" stroke="#00f0d0" stroke-width="1.5"/>
+                    <line x1="350" y1="269" x2="356" y2="271"/>
+                    <line x1="339" y1="297" x2="344" y2="300"/>
+                    <line x1="321" y1="321" x2="325" y2="325"/>
+                    <line x1="297" y1="339" x2="300" y2="344"/>
+                    <line x1="269" y1="350" x2="271" y2="356"/>
+                    <line x1="240" y1="354" x2="240" y2="364" stroke="#00f0d0" stroke-width="1.5"/>
+                    <line x1="211" y1="350" x2="209" y2="356"/>
+                    <line x1="183" y1="339" x2="180" y2="344"/>
+                    <line x1="159" y1="321" x2="155" y2="325"/>
+                    <line x1="141" y1="297" x2="136" y2="300"/>
+                    <line x1="130" y1="269" x2="124" y2="271"/>
+                    <line x1="126" y1="240" x2="116" y2="240" stroke="#00f0d0" stroke-width="1.5"/>
+                    <line x1="130" y1="211" x2="124" y2="209"/>
+                    <line x1="141" y1="183" x2="136" y2="180"/>
+                    <line x1="159" y1="159" x2="155" y2="155"/>
+                    <line x1="183" y1="141" x2="180" y2="136"/>
+                    <line x1="211" y1="130" x2="209" y2="124"/>
+                    <line x1="240" y1="126" x2="240" y2="116" stroke="#00f0d0" stroke-width="1.5"/>
+                    <line x1="269" y1="130" x2="271" y2="124"/>
+                    <line x1="297" y1="141" x2="300" y2="136"/>
+                    <line x1="321" y1="159" x2="325" y2="155"/>
+                    <line x1="339" y1="183" x2="344" y2="180"/>
+                    <line x1="350" y1="211" x2="356" y2="209"/>
+                  </g>
+                  <text x="368" y="243" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="8.5">0°</text>
+                  <text x="240" y="375" text-anchor="middle" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="8.5">90°</text>
+                  <text x="112" y="243" text-anchor="end" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="8.5">180°</text>
+                  <text x="240" y="112" text-anchor="middle" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="8.5">270°</text>
+
+                  <!-- Stationary Reference Tracks -->
+                  <circle cx="240" cy="240" r="104" stroke="#b88938" stroke-width="1" stroke-opacity="0.45"/>
+                  <circle id="svg-outer-pitch-ring" cx="240" cy="240" r="82" stroke="#ff9f1c" stroke-width="1.2" stroke-dasharray="4 3" stroke-opacity="0.55"/>
+                  <circle id="svg-inner-pitch-ring" cx="240" cy="240" r="44" stroke="#00f0d0" stroke-width="1.2" stroke-dasharray="3 3" stroke-opacity="0.55"/>
+
+                  <!-- LAYER 1: CONTINUOUSLY ROTATING REACTION-WHEEL ROTOR ASSEMBLY -->
+                  <g id="rotor-spinning-assembly" class="rotating-rotor" style="--rotor-spin-duration: 3s; transform-origin: 240px 240px;">
+                    <!-- Outer Rim Body & Concentric Brass Track (r=100) -->
+                    <circle cx="240" cy="240" r="100" stroke="#d4a853" stroke-width="2.5" fill="rgba(212, 168, 83, 0.035)"/>
+                    <circle cx="240" cy="240" r="94" stroke="#153833" stroke-width="1.2"/>
+
+                    <!-- Stroboscopic Brass Calibration Notches around Rim -->
+                    <g stroke="#d4a853" stroke-width="1.5">
+                      <line x1="240" y1="140" x2="240" y2="146"/>
+                      <line x1="240" y1="340" x2="240" y2="334"/>
+                      <line x1="140" y1="240" x2="146" y2="240"/>
+                      <line x1="340" y1="240" x2="334" y2="240"/>
+                      <line x1="169" y1="169" x2="173" y2="173"/>
+                      <line x1="311" y1="311" x2="307" y2="307"/>
+                      <line x1="169" y1="311" x2="173" y2="307"/>
+                      <line x1="311" y1="169" x2="307" y2="173"/>
+                    </g>
+
+                    <!-- 6 Structural Spokes with Radial Slotted Guide Channels (k * 60°) -->
+                    <!-- Spoke 0: 0° -->
+                    <g class="spoke-slot" transform="rotate(0 240 240)">
+                      <line x1="264" y1="240" x2="334" y2="240" stroke="#253835" stroke-width="7" stroke-linecap="round"/>
+                      <line x1="274" y1="240" x2="328" y2="240" stroke="#091311" stroke-width="3" stroke-linecap="round"/>
+                      <g class="m3-screw-washer at-outer" id="screw-washer-0" transform="translate(82, 0)">
+                        <circle cx="240" cy="240" r="7.5" class="washer-disc" fill="#3a2e22" stroke="#ff9f1c" stroke-width="1.3"/>
+                        <polygon points="237.5,235.7 242.5,235.7 245,240 242.5,244.3 237.5,244.3 235,240" class="hex-socket" fill="#11151a" stroke="#d4a853" stroke-width="0.8"/>
+                      </g>
+                    </g>
+
+                    <!-- Spoke 1: 60° -->
+                    <g class="spoke-slot" transform="rotate(60 240 240)">
+                      <line x1="264" y1="240" x2="334" y2="240" stroke="#253835" stroke-width="7" stroke-linecap="round"/>
+                      <line x1="274" y1="240" x2="328" y2="240" stroke="#091311" stroke-width="3" stroke-linecap="round"/>
+                      <g class="m3-screw-washer at-outer" id="screw-washer-1" transform="translate(82, 0)">
+                        <circle cx="240" cy="240" r="7.5" class="washer-disc" fill="#3a2e22" stroke="#ff9f1c" stroke-width="1.3"/>
+                        <polygon points="237.5,235.7 242.5,235.7 245,240 242.5,244.3 237.5,244.3 235,240" class="hex-socket" fill="#11151a" stroke="#d4a853" stroke-width="0.8"/>
+                      </g>
+                    </g>
+
+                    <!-- Spoke 2: 120° -->
+                    <g class="spoke-slot" transform="rotate(120 240 240)">
+                      <line x1="264" y1="240" x2="334" y2="240" stroke="#253835" stroke-width="7" stroke-linecap="round"/>
+                      <line x1="274" y1="240" x2="328" y2="240" stroke="#091311" stroke-width="3" stroke-linecap="round"/>
+                      <g class="m3-screw-washer at-outer" id="screw-washer-2" transform="translate(82, 0)">
+                        <circle cx="240" cy="240" r="7.5" class="washer-disc" fill="#3a2e22" stroke="#ff9f1c" stroke-width="1.3"/>
+                        <polygon points="237.5,235.7 242.5,235.7 245,240 242.5,244.3 237.5,244.3 235,240" class="hex-socket" fill="#11151a" stroke="#d4a853" stroke-width="0.8"/>
+                      </g>
+                    </g>
+
+                    <!-- Spoke 3: 180° -->
+                    <g class="spoke-slot" transform="rotate(180 240 240)">
+                      <line x1="264" y1="240" x2="334" y2="240" stroke="#253835" stroke-width="7" stroke-linecap="round"/>
+                      <line x1="274" y1="240" x2="328" y2="240" stroke="#091311" stroke-width="3" stroke-linecap="round"/>
+                      <g class="m3-screw-washer at-outer" id="screw-washer-3" transform="translate(82, 0)">
+                        <circle cx="240" cy="240" r="7.5" class="washer-disc" fill="#3a2e22" stroke="#ff9f1c" stroke-width="1.3"/>
+                        <polygon points="237.5,235.7 242.5,235.7 245,240 242.5,244.3 237.5,244.3 235,240" class="hex-socket" fill="#11151a" stroke="#d4a853" stroke-width="0.8"/>
+                      </g>
+                    </g>
+
+                    <!-- Spoke 4: 240° -->
+                    <g class="spoke-slot" transform="rotate(240 240 240)">
+                      <line x1="264" y1="240" x2="334" y2="240" stroke="#253835" stroke-width="7" stroke-linecap="round"/>
+                      <line x1="274" y1="240" x2="328" y2="240" stroke="#091311" stroke-width="3" stroke-linecap="round"/>
+                      <g class="m3-screw-washer at-outer" id="screw-washer-4" transform="translate(82, 0)">
+                        <circle cx="240" cy="240" r="7.5" class="washer-disc" fill="#3a2e22" stroke="#ff9f1c" stroke-width="1.3"/>
+                        <polygon points="237.5,235.7 242.5,235.7 245,240 242.5,244.3 237.5,244.3 235,240" class="hex-socket" fill="#11151a" stroke="#d4a853" stroke-width="0.8"/>
+                      </g>
+                    </g>
+
+                    <!-- Spoke 5: 300° -->
+                    <g class="spoke-slot" transform="rotate(300 240 240)">
+                      <line x1="264" y1="240" x2="334" y2="240" stroke="#253835" stroke-width="7" stroke-linecap="round"/>
+                      <line x1="274" y1="240" x2="328" y2="240" stroke="#091311" stroke-width="3" stroke-linecap="round"/>
+                      <g class="m3-screw-washer at-outer" id="screw-washer-5" transform="translate(82, 0)">
+                        <circle cx="240" cy="240" r="7.5" class="washer-disc" fill="#3a2e22" stroke="#ff9f1c" stroke-width="1.3"/>
+                        <polygon points="237.5,235.7 242.5,235.7 245,240 242.5,244.3 237.5,244.3 235,240" class="hex-socket" fill="#11151a" stroke="#d4a853" stroke-width="0.8"/>
+                      </g>
+                    </g>
+
+                    <!-- Central 220KV 2804 BLDC Motor Rotor Bell (r=24) -->
+                    <circle cx="240" cy="240" r="24" fill="#0b1312" stroke="#00f0d0" stroke-width="2"/>
+                    <circle cx="240" cy="240" r="18" fill="#112220" stroke="#153833" stroke-width="1"/>
+                    <!-- Stator Pole Pins -->
+                    <g fill="#d4a853">
+                      <circle cx="240" cy="225" r="1.5"/><circle cx="253" cy="232" r="1.5"/>
+                      <circle cx="253" cy="248" r="1.5"/><circle cx="240" cy="255" r="1.5"/>
+                      <circle cx="227" cy="248" r="1.5"/><circle cx="227" cy="232" r="1.5"/>
+                    </g>
+                    <!-- Brass Shaft Collar & Magnetic Encoder Target -->
+                    <circle cx="240" cy="240" r="8" fill="#d4a853" stroke="#b88938" stroke-width="1"/>
+                    <circle cx="240" cy="240" r="3.5" fill="#00f0d0" filter="url(#phosphorGlow)"/>
+                  </g>
+
+                  <!-- Backward-Compatibility Marker Groups for Test Harness -->
+                  <g id="svg-inner-weights" class="inner-weights-ref" opacity="0.28" aria-hidden="true">
+                    <circle cx="284" cy="240" r="5.5" fill="#00f0d0" stroke="#eef0f4" stroke-width="1.2"/>
+                    <circle cx="262" cy="278" r="5.5" fill="#00f0d0" stroke="#eef0f4" stroke-width="1.2"/>
+                    <circle cx="218" cy="278" r="5.5" fill="#00f0d0" stroke="#eef0f4" stroke-width="1.2"/>
+                    <circle cx="196" cy="240" r="5.5" fill="#00f0d0" stroke="#eef0f4" stroke-width="1.2"/>
+                    <circle cx="218" cy="202" r="5.5" fill="#00f0d0" stroke="#eef0f4" stroke-width="1.2"/>
+                    <circle cx="262" cy="202" r="5.5" fill="#00f0d0" stroke="#eef0f4" stroke-width="1.2"/>
+                  </g>
+                  <g id="svg-outer-weights" class="outer-weights-ref" opacity="1.0" aria-hidden="true">
+                    <circle cx="322" cy="240" r="6.5" fill="#ff9f1c" stroke="#eef0f4" stroke-width="1.3"/>
+                    <circle cx="281" cy="311" r="6.5" fill="#ff9f1c" stroke="#eef0f4" stroke-width="1.3"/>
+                    <circle cx="199" cy="311" r="6.5" fill="#ff9f1c" stroke="#eef0f4" stroke-width="1.3"/>
+                    <circle cx="158" cy="240" r="6.5" fill="#ff9f1c" stroke="#eef0f4" stroke-width="1.3"/>
+                    <circle cx="199" cy="169" r="6.5" fill="#ff9f1c" stroke="#eef0f4" stroke-width="1.3"/>
+                    <circle cx="281" cy="169" r="6.5" fill="#ff9f1c" stroke="#eef0f4" stroke-width="1.3"/>
+                  </g>
+
+                  <!-- Dimension Callouts -->
+                  <line id="svg-active-radius-line" x1="240" y1="240" x2="322" y2="240" stroke="#ff9f1c" stroke-width="1.8" stroke-dasharray="3 2"/>
+                  <text id="svg-active-radius-label" x="240" y="380" text-anchor="middle" fill="#ff9f1c" font-family="Share Tech Mono, monospace" font-size="11" font-weight="bold">r_eff = 68mm (MAX I // +93.1%)</text>
+                  <text x="240" y="398" text-anchor="middle" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="9.5">6x M3 SCREWS + WASHERS // 220KV 2804</text>
+
+                  <!-- ==========================================================
+                       CENTER SPINE (LAYER 3): 45° CHAMFERED PCB CONDUITS & SIGNAL PULSES
+                       ========================================================== -->
+                  <text x="540" y="32" text-anchor="middle" fill="#00f0d0" font-family="Silkscreen, monospace" font-size="10">4-CH PCB SIGNAL CONDUIT</text>
+                  <text x="540" y="48" text-anchor="middle" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="9.5">45° MITERED COPPER TRACES</text>
+
+                  <g id="svg-pcb-traces" class="pcb-trace-network">
+                    <!-- Trace 1: PWM Motor Drive Outbound -->
+                    <path class="pcb-trace-track" d="M 440 170 L 490 170 L 520 200 L 640 200" stroke="#0e2622" stroke-width="3" stroke-linecap="round"/>
+                    <path class="pcb-trace pcb-trace-pulse pulse-outbound pulse-cyan" d="M 440 170 L 490 170 L 520 200 L 640 200" stroke="#00f0d0" stroke-width="2.5" stroke-dasharray="8 24" stroke-linecap="round" filter="url(#phosphorGlow)"/>
+                    <text x="540" y="192" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="8.5" text-anchor="middle">CH-01 // PWM DRIVE &rarr;</text>
+
+                    <!-- Trace 2: MT6701 Magnetic Encoder Feedback Inbound -->
+                    <path class="pcb-trace-track" d="M 440 215 L 505 215 L 535 245 L 640 245" stroke="#0e2622" stroke-width="3" stroke-linecap="round"/>
+                    <path class="pcb-trace pcb-trace-pulse pulse-inbound pulse-cyan" d="M 440 215 L 505 215 L 535 245 L 640 245" stroke="#00f0d0" stroke-width="2.5" stroke-dasharray="8 24" stroke-linecap="round" filter="url(#phosphorGlow)"/>
+                    <text x="540" y="238" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="8.5" text-anchor="middle">&larr; CH-02 // MT6701 ANGLE</text>
+
+                    <!-- Trace 3: ICM-20948 9-Axis IMU Telemetry Inbound -->
+                    <path class="pcb-trace-track" d="M 440 260 L 490 260 L 520 290 L 640 290" stroke="#0e2622" stroke-width="3" stroke-linecap="round"/>
+                    <path class="pcb-trace pcb-trace-pulse pulse-inbound pulse-amber" d="M 440 260 L 490 260 L 520 290 L 640 290" stroke="#ff9f1c" stroke-width="2.5" stroke-dasharray="8 24" stroke-linecap="round" filter="url(#phosphorGlow)"/>
+                    <text x="540" y="282" fill="#ff9f1c" font-family="Share Tech Mono, monospace" font-size="8.5" text-anchor="middle">&larr; CH-03 // IMU &Omega;_p RATE</text>
+
+                    <!-- Trace 4: 12V LiPo Filtered Power Rail -->
+                    <path class="pcb-trace-track" d="M 440 305 L 505 305 L 535 335 L 640 335" stroke="#0e2622" stroke-width="3" stroke-linecap="round"/>
+                    <path class="pcb-trace pcb-trace-pulse pulse-outbound pulse-amber" d="M 440 305 L 505 305 L 535 335 L 640 335" stroke="#eef0f4" stroke-width="2" stroke-dasharray="6 20" stroke-linecap="round"/>
+                    <text x="540" y="328" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="8.5" text-anchor="middle">CH-04 // 12V LiPo BUS &rarr;</text>
+                  </g>
+
+                  <!-- ==========================================================
+                       RIGHT BAY (CH2): 3D GYROSCOPIC PRECESSION ORBIT CONE & VECTORS
+                       ========================================================== -->
+                  <text x="660" y="32" fill="#ff9f1c" font-family="Silkscreen, monospace" font-size="11" letter-spacing="0.08em">CH2 // 3D PRECESSION ORBIT CONE</text>
+                  <text x="660" y="48" fill="#7b8494" font-family="Share Tech Mono, monospace" font-size="10.5">&tau; = r_cm &times; Mg &rarr; &Omega;_p = &tau; / (I&omega;)</text>
+
+                  <!-- Vertical Precession Axis (+Z) at x=840 -->
+                  <line id="svg-precession-z-axis" x1="840" y1="60" x2="840" y2="350" stroke="#1d4039" stroke-width="1.8" stroke-dasharray="5 4"/>
+                  <text x="846" y="74" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="10">+Z PRECESSION AXIS</text>
+                  <text id="svg-precession-rate-label" x="846" y="90" fill="#ff9f1c" font-family="Share Tech Mono, monospace" font-size="11" font-weight="bold">&Omega;_p = 0.77 rad/s (SLOWER)</text>
+
+                  <!-- Gimbal Pivot Base (x=840, y=310) -->
+                  <polygon points="816,355 864,355 850,310 830,310" fill="#0c1715" stroke="#00f0d0" stroke-width="1.5"/>
+                  <circle cx="840" cy="310" r="5.5" fill="#eef0f4" stroke="#00f0d0" stroke-width="1.5"/>
+
+                  <!-- Precession Orbit Cone Boundary Guide Tangents -->
+                  <line id="svg-cone-tangent-left" x1="840" y1="310" x2="798" y2="130" stroke="#253f3a" stroke-width="1.4" stroke-dasharray="4 3"/>
+                  <line id="svg-cone-tangent-right" x1="840" y1="310" x2="882" y2="130" stroke="#253f3a" stroke-width="1.4" stroke-dasharray="4 3"/>
+
+                  <!-- Precession Orbit Ellipse (Horizontal orbit at y=130, nominal Rx=42, Ry=13) -->
+                  <ellipse id="svg-precession-orbit" class="precession-orbit-cone-ellipse" cx="840" cy="130" rx="42" ry="13" stroke="#ff9f1c" stroke-width="1.8" stroke-dasharray="5 3" fill="rgba(255, 159, 28, 0.06)" filter="url(#phosphorGlow)"/>
+                  <ellipse id="precession-cone-ellipse" cx="840" cy="130" rx="42" ry="13" style="display:none;"/>
+
+                  <!-- LAYER 4: LIVE 3D VECTOR LINES -->
+                  <!-- Angular Momentum Vector L = I * omega (Shaft Line) -->
+                  <g id="vector-l">
+                    <line id="svg-spin-vector-line" class="vector-line spin-vector" x1="840" y1="310" x2="882" y2="130" stroke="#00f0d0" stroke-width="3.6" stroke-linecap="round" filter="url(#phosphorGlow)"/>
+                    <polygon id="svg-spin-arrowhead" points="882,130 872,136 876,144" fill="#00f0d0" filter="url(#phosphorGlow)"/>
+                    <text id="svg-vector-l-label" x="896" y="124" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="11" font-weight="bold">L = I&middot;&omega; (SPIN)</text>
+                  </g>
+
+                  <!-- Tilted 3D Reaction Wheel Disc on Precessing Shaft -->
+                  <ellipse id="svg-tilted-rotor-disc" cx="869" cy="184" rx="14" ry="42" transform="rotate(-15 869 184)" fill="rgba(255, 159, 28, 0.16)" stroke="#ff9f1c" stroke-width="2.2" filter="url(#phosphorGlow)"/>
+
+                  <!-- Downward Gravity Vector F_g = M * g -->
+                  <g id="vector-fg">
+                    <line id="svg-gravity-vector-line" class="vector-line" x1="869" y1="184" x2="869" y2="248" stroke="#ff3b5c" stroke-width="2.2" stroke-linecap="round"/>
+                    <polygon id="svg-gravity-arrowhead" points="869,252 865,242 873,242" fill="#ff3b5c"/>
+                    <text x="877" y="246" fill="#ff3b5c" font-family="Share Tech Mono, monospace" font-size="10.5" font-weight="bold">F_g = Mg</text>
+                  </g>
+
+                  <!-- Orthogonal Gyroscopic Torque Vector tau = dL / dt -->
+                  <g id="vector-tau">
+                    <line id="svg-torque-vector-line" class="vector-line torque-vector" x1="882" y1="130" x2="916" y2="140" stroke="#eef0f4" stroke-width="2.2" stroke-linecap="round"/>
+                    <polygon id="svg-torque-arrowhead" points="918,141 908,136 910,146" fill="#eef0f4"/>
+                    <text id="svg-vector-tau-label" x="924" y="152" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="10.5" font-weight="bold">&tau; = dL/dt</text>
+                  </g>
+
+                  <text x="660" y="456" fill="#ff9f1c" font-family="Share Tech Mono, monospace" font-size="10">AXONOMETRIC PROJECTION // ICM-20948 PRECESSED TELEMETRY</text>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- East Wing: Hardware Bus Telemetry -->
+          <article class="chassis-module observatory-east-wing ziggurat-bracket-frame" style="display: flex; flex-direction: column;">
+            <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+            <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+            </svg>
+
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag">UNIT 03</span>
+                <span class="module-title-text">Hardware Bus Architecture</span>
+              </div>
+              <div class="module-header-right">
+                <span>LINK: 4-CH ACTIVE</span>
+                <span class="vent-slits" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+              </div>
+            </div>
+
+            <!-- 4-Slot Hardware Bus Architecture Cards -->
+            <div class="hardware-bus-panel">
+              <div class="bus-slot">
+                <span class="bs-ch">BUS 01 // MCU &amp; PID</span>
+                <span class="bs-part">ESP32 + SimpleFOC</span>
+                <span class="bs-desc">Closed-Loop PID Velocity Control (1 kHz Commutation)</span>
+              </div>
+              <div class="bus-slot">
+                <span class="bs-ch">BUS 02 // MOTOR ACTUATOR</span>
+                <span class="bs-part">220KV 2804 BLDC</span>
+                <span class="bs-desc">Low-Cogging Direct Drive with SimpleFOCmini Driver</span>
+              </div>
+              <div class="bus-slot">
+                <span class="bs-ch">BUS 03 // SENSORS &amp; ENCODER</span>
+                <span class="bs-part">ICM-20948 &amp; MT6701</span>
+                <span class="bs-desc">9-Axis Precession IMU &amp; 14-Bit SSI Mag Encoder</span>
+              </div>
+              <div class="bus-slot">
+                <span class="bs-ch">BUS 04 // FRAME &amp; ROTOR</span>
+                <span class="bs-part">Onshape 3D CAD</span>
+                <span class="bs-desc">Modular Rim &amp; Hub Dual Radial Weight Tracks</span>
+              </div>
+            </div>
+
+            <!-- Engraved Calibration Nameplate -->
+            <div class="serial-nameplate" style="margin: 10px 16px 16px;">
+              <div class="nameplate-screw tl"></div>
+              <div class="nameplate-screw tr"></div>
+              <div class="nameplate-screw bl"></div>
+              <div class="nameplate-screw br"></div>
+              <span class="plate-title">PRECISION CALIBRATION SPEC</span>
+              <span class="plate-serial">SN: GP-2804-REV2 // &tau; = 0.048 N&middot;m // I0 = 0.82e-4</span>
+            </div>
+          </article>
+        </div>
+
+        <!-- Bottom Flank: Tactile Mechanical Controls & Bank Selector Deck -->
+        <div class="observatory-bottom-flank">
+          <div class="scope-control-bar observatory-controls-deck chassis-module" aria-label="Interactive Rotor Mass and Spin Controls">
+            <div class="tactile-control-deck-row">
+              <!-- Dual-Position Mass-Ring Rocker Switch -->
+              <div class="scope-control-group tactile-cell">
+                <span class="scope-ctrl-label">M3 Mass Ring:</span>
+                <div class="rocker-switch-enclosure">
+                  <div id="mass-rocker" class="rocker-switch" data-state="outer" role="group" aria-label="M3 Screw Mass Ring Radial Shift">
+                    <button type="button" class="rocker-paddle paddle-inner seg-btn scope-mode-btn" data-rotor-config="inner" data-state="inner" aria-label="Shift to Inner Hub (36mm)">
+                      <span>Inner Hub (36mm)</span>
+                    </button>
+                    <button type="button" class="rocker-paddle paddle-outer seg-btn amber-mode scope-mode-btn active" data-rotor-config="outer" data-state="outer" aria-label="Shift to Outer Rim (68mm)">
+                      <span>Outer Rim (68mm)</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Linear Brass Rheostat Fader -->
+              <div class="hardware-fader-group tactile-cell">
+                <label for="rpm-slider" class="fader-label">FOC Spin (&omega;):</label>
+                <input id="rpm-slider" class="brass-rheostat hardware-slider" type="range" min="1200" max="3600" step="100" value="2400" aria-label="Rotor Spin RPM Rheostat">
+                <span id="rpm-display" class="fader-readout pixel-readout"><span id="rotor-rpm-readout">2400 RPM</span></span>
+              </div>
+
+              <!-- Telemetry Annunciator Indicators -->
+              <div class="annunciator-grid tactile-annunciators" aria-label="Observatory Annunciator Status">
+                <span id="annun-inertia-tag" class="annunciator-lamp lit-amber">I = 2.48e-4</span>
+                <span id="annun-precession-tag" class="annunciator-lamp lit-amber">&Omega;_p = 0.77</span>
+                <span id="annun-speed-tag" class="annunciator-lamp lit-cyan">2400 RPM</span>
+                <span id="annun-motion-tag" class="annunciator-lamp lit-emerald">SPIN: ACTIVE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom 4 Tactile Bank Selector Modules -->
+          <div class="bank-cards-grid">
+            <button type="button" class="bank-card" data-nav="post1">
+              <div>
+                <div class="bank-card-top">
+                  <span class="module-index-tag">BANK 01</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);">5 MODULES</span>
+                </div>
+                <h3>Post 1 // Passions</h3>
+                <p>Personal background across open-source networking, custom electronics &amp; 3D printing, audiophile DAC/IEMs, competitive gaming, and history.</p>
+              </div>
+              <div class="bank-card-footer">
+                <span>SELECT BANK 01</span>
+                <span>OPEN MODULE &rarr;</span>
+              </div>
+            </button>
+
+            <button type="button" class="bank-card" data-nav="post2">
+              <div>
+                <div class="bank-card-top">
+                  <span class="module-index-tag amber">BANK 02</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);">6 CANDIDATES</span>
+                </div>
+                <h3>Post 2 // Driving Questions</h3>
+                <p>Evaluation of six candidate physics investigations, AI critique summaries, and variable isolation for Gyroscopic Precession.</p>
+              </div>
+              <div class="bank-card-footer" style="color: var(--vfd-amber);">
+                <span>SELECT BANK 02</span>
+                <span>OPEN MODULE &rarr;</span>
+              </div>
+            </button>
+
+            <button type="button" class="bank-card" data-nav="post3">
+              <div>
+                <div class="bank-card-top">
+                  <span class="module-index-tag">BANK 03</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);">6 MILESTONES</span>
+                </div>
+                <h3>Post 3 // Gantt Timeline</h3>
+                <p>1440p side-by-side milestone breakdown and Mermaid.js Gantt chart spanning Secondary Research, CAD &amp; PID build, and Deliverables.</p>
+              </div>
+              <div class="bank-card-footer">
+                <span>SELECT BANK 03</span>
+                <span>OPEN MODULE &rarr;</span>
+              </div>
+            </button>
+
+            <button type="button" class="bank-card" data-nav="conferencing">
+              <div>
+                <div class="bank-card-top">
+                  <span class="module-index-tag amber">AUX LOG</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);">READ / WRITE</span>
+                </div>
+                <h3>Conferencing Log</h3>
+                <p>Dedicated teacher checkpoint log separate from blog posts with add, remove, and inline note editing persisted to local storage.</p>
+              </div>
+              <div class="bank-card-footer" style="color: var(--vfd-amber);">
+                <span>OPEN AUX LOG</span>
+                <span>OPEN MODULE &rarr;</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 1: POST 1 // THINGS I'M PASSIONATE ABOUT
+         ====================================================================== -->
+    <section id="view-post1" class="page-view" role="tabpanel" hidden>
+      <div class="view-container">
+        <header class="vfd-window vfd-banner-bar">
+          <div class="vfd-banner-left">
+            <span class="vfd-sub-tag">BANK 01 // PERSONAL ENGINEERING &amp; INTELLECTUAL FOUNDATIONS</span>
+            <h1>POST 1 // THINGS I'M PASSIONATE ABOUT</h1>
+            <p>Five core domains in software, custom hardware fabrication, audio electronics, competitive gaming, and history</p>
+          </div>
+          <div class="annunciator-grid">
+            <span class="annunciator-lamp lit-cyan">MODULES: 05</span>
+            <span class="annunciator-lamp lit-amber">STATUS: ARCHIVED</span>
+          </div>
+        </header>
+
+        <div class="passions-rack-grid">
+          <!-- 1. Computers/Software -->
+          <article class="chassis-module span-2" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag">CH 01</span>
+                <span class="module-title-text">Computers / Software</span>
+              </div>
+              <div class="module-header-right">
+                <span>ROUTER // VPN</span>
+              </div>
+            </div>
+            <div class="vfd-window passion-vfd-graphic">
+              <svg viewBox="0 0 320 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="16" y="20" width="82" height="70" rx="4" fill="#060a09" stroke="#00f0d0" stroke-width="1.8"/>
+                <text x="57" y="42" text-anchor="middle" fill="#00f0d0" font-family="Silkscreen, monospace" font-size="8">CUSTOM_RTR</text>
+                <line x1="28" y1="56" x2="76" y2="56" stroke="#00f0d0" stroke-width="2"/>
+                <line x1="28" y1="68" x2="64" y2="68" stroke="#ff9f1c" stroke-width="2"/>
+                <path d="M98 38H152L166 26H208" stroke="#00f0d0" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <path d="M98 55H208" stroke="#00f0d0" stroke-width="1.8"/>
+                <path d="M98 72H152L166 84H208" stroke="#ff9f1c" stroke-width="1.5" stroke-dasharray="3 3"/>
+                <rect x="208" y="14" width="96" height="24" rx="3" fill="#060a09" stroke="#00f0d0" stroke-width="1.4"/>
+                <text x="256" y="30" text-anchor="middle" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="9.5">VPN_NODE</text>
+                <rect x="208" y="43" width="96" height="24" rx="3" fill="#060a09" stroke="#ff9f1c" stroke-width="1.4"/>
+                <text x="256" y="59" text-anchor="middle" fill="#ff9f1c" font-family="Share Tech Mono, monospace" font-size="9.5">MEDIA_SRV</text>
+                <rect x="208" y="72" width="96" height="24" rx="3" fill="#060a09" stroke="#00f0d0" stroke-width="1.4"/>
+                <text x="256" y="88" text-anchor="middle" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="9.5">OPEN_SRC_OS</text>
+              </svg>
+            </div>
+            <div class="passion-module-body">
+              <h3 class="passion-module-title">Computers/Software</h3>
+              <p class="passion-module-text">
+                Programming and software is probably one of my oldest hobbies. I was introduced to it by my father who works in IT and the interest has stayed with me ever since. The ability to create and customize without the higher entry barrier of more physical fields really appeals to me. I've done tons of things over the years but recently I wanted to stop my router from bottlenecking my internet connection but the only ones which had the features I needed cost hundreds of dollars, so I bought an old computer off Facebook marketplace and I turned it into my own router for a fraction of the cost using free opensource tools. I'm also using the extra capacity on the computer to host my own vpn and media server all for free as well. To me software represents infinite possibilities accessible to anyone who puts in the time.
+              </p>
+            </div>
+          </article>
+
+          <!-- 2. Electronics -->
+          <article class="chassis-module span-2" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag amber">CH 02</span>
+                <span class="module-title-text">Electronics</span>
+              </div>
+              <div class="module-header-right">
+                <span>PCB // 3D PRINT</span>
+              </div>
+            </div>
+            <div class="vfd-window passion-vfd-graphic">
+              <svg viewBox="0 0 320 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="112" y="18" width="96" height="74" rx="4" fill="#060a09" stroke="#ff9f1c" stroke-width="2"/>
+                <text x="160" y="50" text-anchor="middle" fill="#ff9f1c" font-family="Silkscreen, monospace" font-size="9">MCU_CORE</text>
+                <text x="160" y="66" text-anchor="middle" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="9.5">HARDWARE_FAB</text>
+                <path d="M24 32H84L98 42H112" stroke="#00f0d0" stroke-width="1.8"/>
+                <path d="M24 55H112" stroke="#ff9f1c" stroke-width="1.8"/>
+                <path d="M24 78H84L98 68H112" stroke="#00f0d0" stroke-width="1.8"/>
+                <path d="M208 42H222L236 32H296" stroke="#00f0d0" stroke-width="1.8"/>
+                <path d="M208 55H296" stroke="#ff9f1c" stroke-width="1.8"/>
+                <path d="M208 68H222L236 78H296" stroke="#00f0d0" stroke-width="1.8"/>
+                <circle cx="24" cy="32" r="3.5" fill="#00f0d0"/>
+                <circle cx="24" cy="55" r="3.5" fill="#ff9f1c"/>
+                <circle cx="24" cy="78" r="3.5" fill="#00f0d0"/>
+                <circle cx="296" cy="32" r="3.5" fill="#00f0d0"/>
+                <circle cx="296" cy="55" r="3.5" fill="#ff9f1c"/>
+                <circle cx="296" cy="78" r="3.5" fill="#00f0d0"/>
+              </svg>
+            </div>
+            <div class="passion-module-body">
+              <h3 class="passion-module-title">Electronics</h3>
+              <p class="passion-module-text">
+                Electronics have always been a pretty significant part of my life. As such I've always been interested in how they work and what I can do to make them better. I really enjoy deepdiving into a niche to find that one product which is just right for me and if it doesn't exist I try to build it. I built my keyboard, computer, and 3d printer, and I've spent hours researching other peripherals and electronics. There's something really special about putting together something yourself and watching it turn electricity into something real and complex. It gives me a sense of accomplishment when I finish building a project that I can physically see and touch that software just can't match.
+              </p>
+            </div>
+          </article>
+
+          <!-- 3. Music -->
+          <article class="chassis-module span-2" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag">CH 03</span>
+                <span class="module-title-text">Music &amp; Audio</span>
+              </div>
+              <div class="module-header-right">
+                <span>DAC // IEM FR</span>
+              </div>
+            </div>
+            <div class="vfd-window passion-vfd-graphic">
+              <svg viewBox="0 0 320 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="20" y1="26" x2="300" y2="26" stroke="#153833" stroke-width="1"/>
+                <line x1="20" y1="55" x2="300" y2="55" stroke="#153833" stroke-width="1"/>
+                <line x1="20" y1="84" x2="300" y2="84" stroke="#153833" stroke-width="1"/>
+                <rect x="38" y="58" width="12" height="26" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="62" y="42" width="12" height="42" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="86" y="34" width="12" height="50" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="110" y="48" width="12" height="36" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="134" y="52" width="12" height="32" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="158" y="38" width="12" height="46" rx="1" fill="#ff9f1c" fill-opacity="0.45"/>
+                <rect x="182" y="28" width="12" height="56" rx="1" fill="#ff9f1c" fill-opacity="0.45"/>
+                <rect x="206" y="40" width="12" height="44" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="230" y="46" width="12" height="38" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <rect x="254" y="54" width="12" height="30" rx="1" fill="#00f0d0" fill-opacity="0.35"/>
+                <path d="M24 70 C 65 36, 105 44, 145 50 C 185 22, 220 34, 296 52" stroke="#ff9f1c" stroke-width="2.4" fill="none"/>
+                <text x="24" y="20" fill="#00f0d0" font-family="Silkscreen, monospace" font-size="7.5">20HZ // DAC SPECTRAL RESPONSE // 20KHZ</text>
+              </svg>
+            </div>
+            <div class="passion-module-body">
+              <h3 class="passion-module-title">Music</h3>
+              <p class="passion-module-text">
+                Within the past 1-2 years I've gotten a lot more into music. I've been able to find a whole bunch of smaller artists and songs I probably wouldn't have come across otherwise. I've also gotten into the hardware side of things; it's pretty interesting learning about different frequency response patterns, digital audio converters, and all the different specs there are. I've got a pretty pricey pair of openback headphones for my setup at home and a solid pair of IEMs for daily use. There's truly a world of difference between regular bluetooth earbuds and a nice pair of wired earbuds/headphones with a good DAC. I feel like being able to really experience music like this has added a lot more colour to daily life.
+              </p>
+            </div>
+          </article>
+
+          <!-- 4. Video Games -->
+          <article class="chassis-module span-3" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag amber">CH 04</span>
+                <span class="module-title-text">Video Games</span>
+              </div>
+              <div class="module-header-right">
+                <span>SKILL EXPRESSION // COMMUNITY</span>
+              </div>
+            </div>
+            <div class="vfd-window passion-vfd-graphic">
+              <svg viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="110" cy="55" r="36" stroke="#00f0d0" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <circle cx="110" cy="55" r="18" stroke="#00f0d0" stroke-width="1.5"/>
+                <circle cx="110" cy="55" r="4" fill="#ff9f1c"/>
+                <line x1="64" y1="55" x2="156" y2="55" stroke="#00f0d0" stroke-width="1.2"/>
+                <line x1="110" y1="9" x2="110" y2="101" stroke="#00f0d0" stroke-width="1.2"/>
+                <path d="M165 55H215L235 32H285" stroke="#ff9f1c" stroke-width="1.8"/>
+                <path d="M215 55L235 78H285" stroke="#00f0d0" stroke-width="1.8"/>
+                <circle cx="215" cy="55" r="4" fill="#eef0f4"/>
+                <rect x="279" y="25" width="14" height="14" rx="2" fill="#060a09" stroke="#ff9f1c" stroke-width="2"/>
+                <rect x="279" y="71" width="14" height="14" rx="2" fill="#060a09" stroke="#00f0d0" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="passion-module-body">
+              <h3 class="passion-module-title">Video Games</h3>
+              <p class="passion-module-text">
+                I've played videogames for as long as I can remember. I like videogames more for the people and community rather than the game itself. Since I don't play many story games the part that draws me in is the skill expression which means nothing if there's no one to share it with. Playing with and against other people while being a part of a larger community is what makes videogames worthwhile for me.
+              </p>
+            </div>
+          </article>
+
+          <!-- 5. History and Politics -->
+          <article class="chassis-module span-3" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag">CH 05</span>
+                <span class="module-title-text">History and Politics</span>
+              </div>
+              <div class="module-header-right">
+                <span>WORLD SYSTEMS // CAUSALITY</span>
+              </div>
+            </div>
+            <div class="vfd-window passion-vfd-graphic">
+              <svg viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="110" cy="55" r="38" stroke="#ff9f1c" stroke-width="1.5"/>
+                <ellipse cx="110" cy="55" rx="38" ry="16" stroke="#00f0d0" stroke-width="1.2"/>
+                <ellipse cx="110" cy="55" rx="16" ry="38" stroke="#00f0d0" stroke-width="1.2"/>
+                <path d="M168 28L235 55L168 82" stroke="#ff9f1c" stroke-width="1.8" fill="none"/>
+                <line x1="168" y1="55" x2="295" y2="55" stroke="#00f0d0" stroke-width="2"/>
+                <circle cx="168" cy="28" r="4" fill="#ff9f1c"/>
+                <circle cx="168" cy="55" r="4" fill="#00f0d0"/>
+                <circle cx="168" cy="82" r="4" fill="#ff9f1c"/>
+                <circle cx="235" cy="55" r="5" fill="#00f0d0"/>
+                <circle cx="295" cy="55" r="6" fill="#eef0f4"/>
+              </svg>
+            </div>
+            <div class="passion-module-body">
+              <h3 class="passion-module-title">History and Politics</h3>
+              <p class="passion-module-text">
+                I like learning about history and politics because it's often more exiting and fantastical than fiction. Different times and places feel like completely different worlds compared to the one I live in, yet they still shape the place I go and the people I meet. The part I find cool is that all kinds of radically different events and ideas collapse into each other creating something new and unexpected which totally makes sense. Even if I mostly consume surface level knowledge Im still a little less confused about the world and I can understand others a little more which makes being here right now lot more exciting and interesting.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 2: POST 2 // DRIVING QUESTIONS & AI EVALUATION MATRIX
+         ====================================================================== -->
+    <section id="view-post2" class="page-view" role="tabpanel" hidden>
+      <div class="view-container">
+        <header class="vfd-window vfd-banner-bar">
+          <div class="vfd-banner-left">
+            <span class="vfd-sub-tag">BANK 02 // EXPERIMENTAL HYPOTHESIS ISOLATION</span>
+            <h1>POST 2 // DRIVING QUESTIONS MATRIX</h1>
+            <p>Comparative analysis of six candidate physics investigations and AI critique logs</p>
+          </div>
+          <a href="https://share.gemini.google/1Isc2ZbPU9xN" target="_blank" rel="noopener noreferrer" class="ext-rom-link">
+            <span>Open Gemini Transcript Log</span>
+            <span aria-hidden="true">&nearr;</span>
+          </a>
+        </header>
+
+        <!-- Selected Topic Progression Enclosure -->
+        <article class="chassis-module selected-hypothesis-rack">
+          <div class="module-header-strip">
+            <div class="module-header-left">
+              <span class="module-index-tag">LOCKED TARGET // CAND 05</span>
+              <span class="module-title-text">Gyroscopic Precession &mdash; 3-Stage Question Refinement</span>
+            </div>
+            <div class="module-header-right">
+              <span>INDEPENDENT: RADIUS (r) // DEPENDENT: PRECESSION (&Omega;_p)</span>
+            </div>
+          </div>
+          <div class="selected-hypothesis-inner">
+            <div class="hypothesis-stages">
+              <div class="vfd-window stage-vfd-box">
+                <span class="stage-step-tag">STAGE 01 // INITIAL FORMULATION</span>
+                <p class="stage-body-copy">"How does varying the mass distribution of a spinning rotor affect its gyroscopic precession"</p>
+              </div>
+              <div class="vfd-window stage-vfd-box">
+                <span class="stage-step-tag">STAGE 02 // AI CRITIQUE SUMMARY</span>
+                <p class="stage-body-copy">The experimental physics is solid and directly measurable; it only required simpler, more concrete language describing the physical alteration to the rotor.</p>
+              </div>
+              <div class="vfd-window stage-vfd-box locked-target">
+                <span class="stage-step-tag">STAGE 03 // FINAL REFINED QUESTION</span>
+                <p class="stage-body-copy">"How does shifting a spinning wheel's mass toward its outer rim change how fast it precesses?"</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6-Candidate Matrix Enclosure -->
+        <article class="chassis-module">
+          <div class="module-header-strip">
+            <div class="module-header-left">
+              <span class="module-index-tag amber">MATRIX ROM</span>
+              <span class="module-title-text">Candidate Physics Investigations (6 Topics)</span>
+            </div>
+            <div class="module-header-right">
+              <span>REF: PPP #2 - SHEET1</span>
+            </div>
+          </div>
+          <table class="retro-matrix-table">
+            <thead>
+              <tr>
+                <th style="width: 18%;">Candidate Topic</th>
+                <th style="width: 25%;">Original Question</th>
+                <th style="width: 30%;">AI Feedback Summary</th>
+                <th style="width: 27%;">Final Refined Question</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="cand-slot-id">CAND 01</span>
+                  <span class="cand-slot-title">Stepper Motor Dynamics</span>
+                </td>
+                <td>"How does rotational velocity govern the magnitude of back-EMF and regenerative braking deceleration in stepper motors."</td>
+                <td>Conflates two distinct physical phenomena (back-EMF vs. deceleration under load). Internal detent cogging also introduces confounding friction that obscures pure electromagnetic braking.</td>
+                <td>"How does the electrical resistance connected across a spinning motor affect how quickly it comes to a stop?"</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cand-slot-id">CAND 02</span>
+                  <span class="cand-slot-title">Optical Lens Distortion</span>
+                </td>
+                <td>"How do computer vision algorithms mathematically correct for radial optical distortion caused lens curvature and focal length."</td>
+                <td>Frames the investigation as a software/computational review rather than a hands-on physics experiment measuring physical light paths and lens curvature directly.</td>
+                <td>"How does the curvature of a lens change the amount of radial distortion seen in a projected grid?"</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cand-slot-id">CAND 03</span>
+                  <span class="cand-slot-title">Eddy Current Proximity Sensors</span>
+                </td>
+                <td>"How does material and distance affect an eddy current proximity sensors readings"</td>
+                <td>Tests two independent variables at once without a clean control group. "Readings" is ambiguous, driving the inquiry toward catalog lookup rather than hypothesis testing.</td>
+                <td>"How does a metal's electrical conductivity affect the output voltage of an eddy current sensor at a fixed distance?"</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cand-slot-id">CAND 04</span>
+                  <span class="cand-slot-title">Acoustic Resonance &amp; Speech Synthesis</span>
+                </td>
+                <td>"How does constructive and destructive interference among harmonic frequencies create synthesized voices"</td>
+                <td>Physically inaccurate premise; vocal timbre and vowel formation stem from acoustic cavity filtering and resonance (the source-filter model), not spatial wave interference.</td>
+                <td>"How does changing the shape and volume of an acoustic cavity filter a buzzing sound into distinct vowel sounds?"</td>
+              </tr>
+              <tr class="selected-row">
+                <td>
+                  <span class="cand-slot-id glow-cyan">CAND 05 // LOCKED</span>
+                  <span class="cand-slot-title">Gyroscopic Precession</span>
+                  <span class="phase-tag phase-sr">&check; SELECTED</span>
+                </td>
+                <td>"How does varying the mass distribution of a spinning rotor affect its gyroscopic precession"</td>
+                <td>The experimental physics is solid and directly measurable; it only required simpler, more concrete language describing the physical alteration to the rotor.</td>
+                <td style="color: var(--vfd-cyan); font-weight: 600;">"How does shifting a spinning wheel's mass toward its outer rim change how fast it precesses?"</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="cand-slot-id">CAND 06</span>
+                  <span class="cand-slot-title">The Kapitza Pendulum</span>
+                </td>
+                <td>"How does The Kapitza Pendulum work"</td>
+                <td>Too broad and expository. It lacks concrete independent and dependent variables to experimentally probe the stability boundaries of dynamic inverted balance.</td>
+                <td>"What minimum combination of vibration speed and stroke length is needed to keep an upside-down pendulum stable?"</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 3: POST 3 // 1440P SPLIT-VIEW GANTT & MILESTONE BREAKDOWN
+         ====================================================================== -->
+    <section id="view-post3" class="page-view" role="tabpanel" hidden>
+      <div class="view-container wide-1440p">
+        <header class="vfd-window vfd-banner-bar">
+          <div class="vfd-banner-left">
+            <span class="vfd-sub-tag">BANK 03 // MASTER CHRONOLOGICAL SCHEDULE (NOV 1, 2026 &ndash; JAN 4, 2027)</span>
+            <h1>POST 3 // GANTT TIMELINE &amp; TASK BREAKDOWN</h1>
+            <p>Synchronized 6-milestone research, CAD fabrication, PID loop tuning, and experimental trial schedule</p>
+          </div>
+
+          <!-- Tactile Phase Filter Selector Controls -->
+          <div class="segmented-control-well" role="group" aria-label="Filter Milestones by Project Phase">
+            <button type="button" class="seg-btn gantt-phase-btn active" data-phase-filter="all">All Phases (6)</button>
+            <button type="button" class="seg-btn gantt-phase-btn" data-phase-filter="sr">Secondary Research</button>
+            <button type="button" class="seg-btn amber-mode gantt-phase-btn" data-phase-filter="pr">Primary Research</button>
+            <button type="button" class="seg-btn gantt-phase-btn" data-phase-filter="del">Deliverables</button>
+          </div>
+        </header>
+
+        <div class="split-1440p-grid">
+          <!-- Left Enclosure: Detailed Task Breakdown Table -->
+          <article class="chassis-module" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag">LOG TABLE</span>
+                <span class="module-title-text">Detailed Task Breakdown &amp; Descriptions</span>
+              </div>
+              <div class="module-header-right">
+                <span>HOVER ROW TO TRACE GANTT BAR</span>
+              </div>
+            </div>
+            <div style="flex: 1;">
+              <table class="milestone-table">
+                <thead>
+                  <tr>
+                    <th style="width: 37%;">Milestone &amp; Date Window</th>
+                    <th style="width: 63%;">Task Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="ms-row" data-task-id="sr1" data-phase-group="sr">
+                    <td>
+                      <div class="ms-header-line">
+                        <span class="ms-code">MS-01</span>
+                        <span class="phase-tag phase-sr">Secondary Research</span>
+                      </div>
+                      <span class="ms-title">Initial Research &amp; Documentation</span>
+                      <span class="ms-dates">Nov 1, 2026 &ndash; Nov 6, 2026</span>
+                    </td>
+                    <td class="ms-desc">Gather pre-existing research on moment of inertia and gyroscopic precession. Review ESP32, ICM-20948 IMU, and SimpleFOCmini documentation. Complete initial secondary research steps.</td>
+                  </tr>
+                  <tr class="ms-row" data-task-id="sr2" data-phase-group="sr">
+                    <td>
+                      <div class="ms-header-line">
+                        <span class="ms-code">MS-02</span>
+                        <span class="phase-tag phase-sr">Secondary Research</span>
+                      </div>
+                      <span class="ms-title">Analyze Math &amp; Finalize Hardware</span>
+                      <span class="ms-dates">Nov 7, 2026 &ndash; Nov 15, 2026</span>
+                    </td>
+                    <td class="ms-desc">Analyze the mathematical relationship between mass distribution and precession speed. Finalize hardware orders and organize experimental parameters.</td>
+                  </tr>
+                  <tr class="ms-row" data-task-id="pr1" data-phase-group="pr">
+                    <td>
+                      <div class="ms-header-line">
+                        <span class="ms-code">MS-03</span>
+                        <span class="phase-tag phase-pr">Primary Research</span>
+                      </div>
+                      <span class="ms-title">Draft CAD &amp; 3D Printing</span>
+                      <span class="ms-dates">Nov 16, 2026 &ndash; Nov 22, 2026</span>
+                    </td>
+                    <td class="ms-desc">Begin primary research and physical construction. Draft the Onshape CAD files. Run 3D prints for the frame and the multiple reaction wheel variations.</td>
+                  </tr>
+                  <tr class="ms-row" data-task-id="pr2" data-phase-group="pr">
+                    <td>
+                      <div class="ms-header-line">
+                        <span class="ms-code">MS-04</span>
+                        <span class="phase-tag phase-pr">Primary Research</span>
+                      </div>
+                      <span class="ms-title">Solder, Wire &amp; Code PID</span>
+                      <span class="ms-dates">Nov 23, 2026 &ndash; Dec 6, 2026</span>
+                    </td>
+                    <td class="ms-desc">Solder and wire the 220KV 2804 motors and MT6701 encoders. Tune the PID loops and conduct preliminary balancing tests.</td>
+                  </tr>
+                  <tr class="ms-row" data-task-id="pr3" data-phase-group="pr">
+                    <td>
+                      <div class="ms-header-line">
+                        <span class="ms-code">MS-05</span>
+                        <span class="phase-tag phase-pr">Primary Research</span>
+                      </div>
+                      <span class="ms-title">Precession Experiments &amp; Video</span>
+                      <span class="ms-dates">Dec 7, 2026 &ndash; Dec 18, 2026</span>
+                    </td>
+                    <td class="ms-desc">Conduct the main experiments. Swap the reaction wheels, shift the machine screws and washers to the outer rim, and capture video recordings to document the changes in precession speed. Complete all physical builds and experimental trials.</td>
+                  </tr>
+                  <tr class="ms-row" data-task-id="del1" data-phase-group="del">
+                    <td>
+                      <div class="ms-header-line">
+                        <span class="ms-code">MS-06</span>
+                        <span class="phase-tag phase-del">Deliverables</span>
+                      </div>
+                      <span class="ms-title">Data Analysis &amp; Trifold Design</span>
+                      <span class="ms-dates">Dec 19, 2026 &ndash; Jan 4, 2027</span>
+                    </td>
+                    <td class="ms-desc">Analyze the recorded video footage and telemetry data. Format findings into a presentation script and design the visual trifold. Complete the trifold and script.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <!-- Right Enclosure: Recessed VFD Mermaid Gantt Screen -->
+          <article class="chassis-module" style="display: flex; flex-direction: column;">
+            <div class="module-header-strip">
+              <div class="module-header-left">
+                <span class="module-index-tag amber">VFD PLOTTER</span>
+                <span class="module-title-text">Project Schedule (Gantt Chart)</span>
+              </div>
+              <div class="module-header-right">
+                <span>GRID: 7 DAYS/DIV // 65 DAYS TOTAL</span>
+              </div>
+            </div>
+            <div class="vfd-window gantt-vfd-screen">
+              <div id="gantt-container"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 4: CONFERENCING LOG (ADD, REMOVE & INLINE EDIT CHECKPOINTS)
+         ====================================================================== -->
+    <section id="view-conferencing" class="page-view" role="tabpanel" hidden>
+      <div class="view-container">
+        <header class="vfd-window vfd-banner-bar">
+          <div class="vfd-banner-left">
+            <span class="vfd-sub-tag">AUXILIARY RECORD // SEPARATE FROM BLOG POST SEQUENCE</span>
+            <h1>TEACHER CONFERENCING &amp; FEEDBACK LOG</h1>
+            <p>Checkpoint record for logging teacher feedback, experimental adjustments, and student action items</p>
+          </div>
+          <div class="conf-toolbar">
+            <button type="button" id="toggle-edit-conf-btn" class="tactile-action-btn">
+              <span id="edit-btn-label">Edit Inline Notes</span>
+            </button>
+            <button type="button" id="add-conf-btn" class="tactile-action-btn primary">
+              <span>+ Add Conference</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- New Conference Entry Drawer -->
+        <div id="new-conf-form" class="chassis-module conf-drawer">
+          <div class="pixel-readout glow-cyan" style="font-size: 0.78rem; margin-bottom: 14px;">
+            NEW TEACHER CONFERENCE RECORD
+          </div>
+          <div class="drawer-grid">
+            <div class="field-group">
+              <label for="conf-title-input">Checkpoint / Meeting Title</label>
+              <input id="conf-title-input" type="text" placeholder="e.g., Checkpoint 5: Telemetry Review">
+            </div>
+            <div class="field-group">
+              <label for="conf-date-input">Date Window</label>
+              <input id="conf-date-input" type="text" placeholder="e.g., Dec 15, 2026">
+            </div>
+            <div class="field-group">
+              <label for="conf-phase-input">Project Phase</label>
+              <select id="conf-phase-input">
+                <option value="Secondary Research">Secondary Research</option>
+                <option value="Primary Research">Primary Research</option>
+                <option value="Deliverables">Deliverables</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="conf-status-input">Status</label>
+              <select id="conf-status-input">
+                <option value="Scheduled">Scheduled</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+            <div class="field-group">
+              <label for="conf-feedback-input">Teacher Feedback &amp; Observations</label>
+              <textarea id="conf-feedback-input" placeholder="Record teacher questions, experimental critiques, and guidance..."></textarea>
+            </div>
+            <div class="field-group">
+              <label for="conf-actions-input">Student Action Items &amp; Next Steps</label>
+              <textarea id="conf-actions-input" placeholder="List follow-up tasks or CAD/hardware adjustments..."></textarea>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" id="cancel-conf-btn" class="tactile-action-btn">Cancel</button>
+            <button type="button" id="save-conf-btn" class="tactile-action-btn primary">Save Conference</button>
+          </div>
+        </div>
+
+        <!-- Conference Log Cards Grid -->
+        <div id="conf-cards-container" class="conf-cards-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Native ES Module Entry Point -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,911 @@
+/* ==========================================================================
+   HARDWARE COMPONENTS & TACTILE CONTROLS // DECO-LECTRONIC ATELIER
+   Tactile Switchgear, 3D Rocker Switches, Linear Brass Rheostats & VFD Cavities
+   ========================================================================== */
+
+/* ==========================================================================
+   1. TOP INSTRUMENT CONSOLE & INTERLOCKING BANK SELECTOR KEYS
+   ========================================================================== */
+.instrument-rack-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(180deg, #1e242d 0%, #13171e 100%);
+  border-bottom: 2px solid var(--brass-deep);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(247, 223, 158, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.8);
+  padding: 10px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Engraved Brass & Aluminum Brand Nameplate Badge */
+.rack-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  padding: 5px 10px 5px 6px;
+  border-radius: var(--radius-control);
+  transition: background-color 0.15s ease;
+}
+
+.rack-brand:hover {
+  background-color: rgba(212, 168, 83, 0.06);
+}
+
+.rack-brand:active {
+  transform: translateY(1px);
+}
+
+.rack-screw-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hex-screw {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #475569 0%, #181d24 75%);
+  border: 1px solid #090b0e;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.hex-screw::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 1px;
+  right: 1px;
+  height: 1px;
+  background-color: #090b0e;
+  transform: rotate(-30deg);
+}
+
+.nameplate-box {
+  background: linear-gradient(180deg, #1b212b 0%, #11151c 100%);
+  border: 1.5px solid var(--brass-deep);
+  border-radius: var(--radius-control);
+  padding: 6px 14px;
+  box-shadow:
+    inset 0 1px 1px rgba(247, 223, 158, 0.2),
+    var(--shadow-recessed-well);
+}
+
+.nameplate-model {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--brass-bright);
+  letter-spacing: 0.14em;
+  display: block;
+  line-height: 1.15;
+}
+
+.nameplate-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink-primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Recessed Switch Well & Spring-Loaded Pushbuttons */
+.bank-switch-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  list-style: none;
+  background-color: var(--chassis-slate-dark);
+  padding: 6px;
+  border-radius: var(--radius-module);
+  border: 1px solid var(--chassis-slate-lip);
+  box-shadow: var(--shadow-recessed-well);
+}
+
+.bank-btn {
+  appearance: none;
+  position: relative;
+  background: linear-gradient(180deg, #2c3442 0%, #1c222c 100%);
+  border: 1px solid #3c485c;
+  border-bottom: 2px solid #0a0d11;
+  border-radius: var(--radius-control);
+  color: var(--ink-secondary);
+  padding: 8px 16px;
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: var(--shadow-keycap-rest);
+  transform: translateY(0);
+  transition:
+    transform 0.07s cubic-bezier(0.2, 0, 0.2, 1),
+    box-shadow 0.07s cubic-bezier(0.2, 0, 0.2, 1),
+    background 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
+  user-select: none;
+}
+
+.bank-btn:hover {
+  background: linear-gradient(180deg, #364052 0%, #242c38 100%);
+  color: var(--ink-primary);
+  border-color: var(--brass-primary);
+  box-shadow: var(--shadow-keycap-hover);
+}
+
+/* Physical Mechanical Depression (2.5px travel) & Bottom Shadow Collapse */
+.bank-btn:active {
+  transform: translateY(2.5px);
+  box-shadow: var(--shadow-keycap-active);
+}
+
+/* Latched Selected State (.active) */
+.bank-btn.active {
+  transform: translateY(2px);
+  background: linear-gradient(180deg, #14181f 0%, #1c222b 100%);
+  color: var(--ink-primary);
+  border-color: var(--vfd-cyan-border);
+  box-shadow: var(--shadow-keycap-latched);
+}
+
+.bank-btn.tab-conf.active {
+  border-color: var(--vfd-amber-border);
+  box-shadow:
+    0 1px 0 #090b0e,
+    0 1px 2px rgba(0, 0, 0, 0.40),
+    inset 0 3px 6px rgba(0, 0, 0, 0.80),
+    0 0 12px rgba(255, 159, 28, 0.2);
+}
+
+/* Embedded Phosphor Ignition LED Pill */
+.btn-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background-color: #0d1115;
+  border: 1px solid #080a0d;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.85);
+  transition: background-color 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.bank-btn:hover .btn-led {
+  background-color: #27303d;
+}
+
+.bank-btn.active .btn-led {
+  background-color: var(--vfd-cyan);
+  border-color: #a5fff0;
+  box-shadow: var(--vfd-cyan-glow), var(--vfd-cyan-bloom);
+}
+
+.bank-btn.tab-conf.active .btn-led {
+  background-color: var(--vfd-amber);
+  border-color: #ffe0b2;
+  box-shadow: var(--vfd-amber-glow), var(--vfd-amber-bloom);
+}
+
+/* Right Header Mini VFD Status Readout */
+.rack-vfd-readout {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 6px 14px;
+  border-radius: var(--radius-cavity);
+}
+
+.vfd-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vfd-cell-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+}
+
+.vfd-cell-val {
+  font-family: var(--font-pixel);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+}
+
+/* ==========================================================================
+   2. RECESSED VFD / CRT OPTICAL DISPLAY CAVITIES
+   ========================================================================== */
+.vfd-window,
+.crt-screen {
+  background-color: var(--vfd-cavity-bg);
+  background-image:
+    /* Horizontal CRT raster scanlines */
+    linear-gradient(
+      rgba(18, 16, 16, 0) 50%,
+      var(--vfd-scanline) 50%
+    ),
+    /* Optical anode mesh grid */
+    linear-gradient(90deg, var(--vfd-anode-mesh) 1px, transparent 1px),
+    linear-gradient(0deg, var(--vfd-anode-mesh) 1px, transparent 1px);
+  background-size: 100% 3px, 16px 16px, 16px 16px;
+  border: 1px solid var(--vfd-bezel-lip);
+  border-top-color: #050706;
+  border-left-color: #070a08;
+  border-radius: var(--radius-cavity);
+  box-shadow: var(--shadow-vfd-cavity);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Curved Smoked-Glass Specular Reflection */
+.vfd-window::after,
+.crt-screen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Top VFD Banner Bar */
+.vfd-banner-bar {
+  padding: 18px 24px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-radius: var(--radius-module);
+  border: 1px solid var(--brass-deep);
+}
+
+.vfd-banner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.vfd-sub-tag {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--vfd-amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vfd-banner-left h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 1.85vw, 1.65rem);
+  color: var(--ink-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vfd-banner-left h1::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 20px;
+  border-radius: 2px;
+  background-color: var(--vfd-cyan);
+  box-shadow: var(--vfd-cyan-glow);
+}
+
+.vfd-banner-left p {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+}
+
+/* Illuminated Hardware Status Annunciator Lamps */
+.annunciator-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 7px;
+  background-color: #040706;
+  padding: 7px;
+  border-radius: var(--radius-control);
+  border: 1px solid #1a222b;
+}
+
+.annunciator-lamp {
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background-color: #0b0f12;
+  border: 1px solid #1f2630;
+  color: #495260;
+  letter-spacing: 0.05em;
+  text-align: center;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.annunciator-lamp.lit-cyan {
+  background-color: var(--vfd-cyan-soft);
+  border-color: var(--vfd-cyan-border);
+  color: var(--vfd-cyan);
+  text-shadow: var(--vfd-cyan-glow);
+}
+
+.annunciator-lamp.lit-amber {
+  background-color: var(--vfd-amber-soft);
+  border-color: var(--vfd-amber-border);
+  color: var(--vfd-amber);
+  text-shadow: var(--vfd-amber-glow);
+}
+
+.annunciator-lamp.lit-emerald {
+  background-color: var(--vfd-emerald-soft);
+  border-color: var(--vfd-emerald-border);
+  color: var(--vfd-emerald);
+  text-shadow: var(--vfd-emerald-glow);
+}
+
+.annunciator-lamp.lit-crimson {
+  background-color: var(--vfd-crimson-soft);
+  border-color: var(--vfd-crimson-border);
+  color: var(--vfd-crimson);
+  text-shadow: var(--vfd-crimson-glow);
+}
+
+/* ==========================================================================
+   3. CHASSIS MODULES & BEVELED ENCLOSURES
+   ========================================================================== */
+.chassis-module {
+  background: linear-gradient(180deg, var(--chassis-slate-surface) 0%, var(--chassis-slate-base) 100%);
+  border: 1px solid var(--chassis-slate-lip);
+  border-radius: var(--radius-housing);
+  box-shadow: var(--shadow-chassis-heavy);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.chassis-module.with-brass-bezel {
+  border-color: var(--brass-deep);
+  box-shadow:
+    var(--shadow-chassis-heavy),
+    0 0 10px var(--brass-glow-soft);
+}
+
+/* Molded Module Header Strip */
+.module-header-strip {
+  background: linear-gradient(180deg, #181d25 0%, #12161d 100%);
+  border-bottom: 1.5px solid var(--brass-deep);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.module-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.module-index-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--vfd-cyan-soft);
+  color: var(--vfd-cyan);
+  border: 1px solid var(--vfd-cyan-border);
+  letter-spacing: 0.05em;
+}
+
+.module-index-tag.amber {
+  background-color: var(--vfd-amber-soft);
+  color: var(--vfd-amber);
+  border-color: var(--vfd-amber-border);
+}
+
+.module-index-tag.emerald {
+  background-color: var(--vfd-emerald-soft);
+  color: var(--vfd-emerald);
+  border-color: var(--vfd-emerald-border);
+}
+
+.module-title-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--ink-primary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.module-header-right {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Precision Milled Cooling Louvers */
+.vent-slits {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.vent-slits i {
+  display: block;
+  width: 3px;
+  height: 11px;
+  border-radius: 1.5px;
+  background-color: #0a0c0f;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.07);
+}
+
+/* ==========================================================================
+   4. 3D SEE-SAW MASS-RING ROCKER SWITCH
+   ========================================================================== */
+.rocker-switch-enclosure {
+  display: inline-flex;
+  background-color: var(--chassis-slate-dark);
+  padding: 5px;
+  border-radius: var(--radius-module);
+  border: 1.5px solid var(--chassis-slate-lip);
+  box-shadow: var(--shadow-recessed-well);
+  user-select: none;
+}
+
+.rocker-switch {
+  position: relative;
+  display: flex;
+  width: 176px;
+  height: 40px;
+  background: #0f1217;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  perspective: 400px;
+  transform-style: preserve-3d;
+  border: 1px solid #252b36;
+}
+
+.rocker-paddle {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  transition:
+    transform 0.16s cubic-bezier(0.2, 0, 0.2, 1),
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+  background: linear-gradient(180deg, #272f3d 0%, #191f27 100%);
+  border: 1px solid #364254;
+  border-radius: 3px;
+}
+
+.paddle-inner {
+  transform-origin: right center;
+}
+
+.paddle-outer {
+  transform-origin: left center;
+}
+
+/* Inner 36mm Active State: Left depressed (rotateY -12deg), Right tilted out */
+.rocker-switch[data-state="inner"] .paddle-inner {
+  transform: rotateY(-12deg);
+  background: linear-gradient(180deg, #11151c 0%, #1a222d 100%);
+  color: var(--vfd-cyan);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.85),
+    0 0 10px rgba(0, 240, 208, 0.2);
+  border-color: var(--vfd-cyan-border);
+  text-shadow: var(--vfd-cyan-glow);
+}
+
+.rocker-switch[data-state="inner"] .paddle-outer {
+  transform: rotateY(-12deg);
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.6);
+  opacity: 0.75;
+}
+
+/* Outer 68mm Active State: Right depressed (rotateY 12deg), Left tilted out */
+.rocker-switch[data-state="outer"] .paddle-outer {
+  transform: rotateY(12deg);
+  background: linear-gradient(180deg, #11151c 0%, #1a222d 100%);
+  color: var(--vfd-amber);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.85),
+    0 0 10px rgba(255, 159, 28, 0.2);
+  border-color: var(--vfd-amber-border);
+  text-shadow: var(--vfd-amber-glow);
+}
+
+.rocker-switch[data-state="outer"] .paddle-inner {
+  transform: rotateY(12deg);
+  box-shadow: -3px 0 8px rgba(0, 0, 0, 0.6);
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   5. LINEAR BRASS RHEOSTAT FADER (RPM & PARAMETER GOVERNOR)
+   ========================================================================== */
+.rheostat-assembly,
+.hardware-fader-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--chassis-slate-dark);
+  padding: 6px 14px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--chassis-slate-lip);
+  box-shadow: var(--shadow-recessed-well);
+}
+
+.rheostat-label,
+.fader-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+}
+
+.rheostat-readout,
+.fader-readout {
+  font-family: var(--font-pixel);
+  font-size: 0.66rem;
+  color: var(--vfd-amber);
+  min-width: 64px;
+  text-align: right;
+  letter-spacing: 0.04em;
+}
+
+/* Range Input: Linear Brass Rheostat */
+input[type="range"].brass-rheostat,
+input[type="range"].hardware-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 140px;
+  height: 8px;
+  background: #090c0f;
+  border-radius: 4px;
+  border: 1px solid #232b36;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.95);
+  cursor: ew-resize;
+  outline: none;
+  margin: 0;
+}
+
+/* WebKit Slider Thumb: Knurled Brass Handle with Catchlight */
+input[type="range"].brass-rheostat::-webkit-slider-thumb,
+input[type="range"].hardware-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 28px;
+  margin-top: -10px;
+  border-radius: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--brass-highlight) 0%,
+    var(--brass-primary) 45%,
+    var(--brass-deep) 70%,
+    var(--brass-dark) 100%
+  );
+  border: 1px solid var(--brass-bright);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  position: relative;
+  transition: filter 0.12s ease, transform 0.08s ease;
+}
+
+input[type="range"].brass-rheostat::-webkit-slider-thumb:hover,
+input[type="range"].hardware-slider::-webkit-slider-thumb:hover {
+  filter: brightness(1.15) drop-shadow(0 0 6px var(--brass-glow));
+}
+
+input[type="range"].brass-rheostat::-webkit-slider-thumb:active,
+input[type="range"].hardware-slider::-webkit-slider-thumb:active {
+  filter: brightness(0.95);
+  transform: scale(0.96);
+}
+
+/* Firefox Slider Thumb Support */
+input[type="range"].brass-rheostat::-moz-range-thumb,
+input[type="range"].hardware-slider::-moz-range-thumb {
+  width: 18px;
+  height: 28px;
+  border-radius: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--brass-highlight) 0%,
+    var(--brass-primary) 45%,
+    var(--brass-deep) 70%,
+    var(--brass-dark) 100%
+  );
+  border: 1px solid var(--brass-bright);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   6. TACTILE ACTION BUTTONS, EXTERNAL ROM LINKS & SEGMENTED SWITCHES
+   ========================================================================== */
+.tactile-action-btn,
+.ext-rom-link {
+  appearance: none;
+  background: linear-gradient(180deg, #2c3442 0%, #1c222c 100%);
+  border: 1px solid #3c485c;
+  border-bottom: 2px solid #0b0d10;
+  border-radius: var(--radius-control);
+  color: var(--ink-primary);
+  padding: 9px 18px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-keycap-rest);
+  transform: translateY(0);
+  transition:
+    transform 0.07s cubic-bezier(0.2, 0, 0.2, 1),
+    box-shadow 0.07s cubic-bezier(0.2, 0, 0.2, 1),
+    background 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
+  user-select: none;
+}
+
+.tactile-action-btn:hover,
+.ext-rom-link:hover {
+  background: linear-gradient(180deg, #364052 0%, #242c38 100%);
+  border-color: var(--brass-primary);
+  color: var(--brass-bright);
+  box-shadow: var(--shadow-keycap-hover);
+}
+
+.tactile-action-btn:active,
+.ext-rom-link:active {
+  transform: translateY(2.5px);
+  box-shadow: var(--shadow-keycap-active);
+}
+
+.tactile-action-btn.is-latched {
+  background: linear-gradient(180deg, #14181f 0%, #1b2129 100%);
+  border-color: var(--vfd-amber);
+  color: var(--vfd-amber);
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.85),
+    0 0 12px rgba(255, 159, 28, 0.2);
+}
+
+.tactile-action-btn.primary {
+  background: linear-gradient(180deg, #1b3835 0%, #112624 100%);
+  border-color: var(--vfd-cyan-border);
+  color: var(--vfd-cyan);
+}
+
+.tactile-action-btn.primary:hover {
+  background: linear-gradient(180deg, #234844 0%, #16322f 100%);
+  border-color: var(--vfd-cyan);
+  color: #ffffff;
+  box-shadow:
+    var(--shadow-keycap-hover),
+    0 0 12px rgba(0, 240, 208, 0.25);
+}
+
+.tactile-action-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Tactile Remove / Danger Button */
+.btn-remove-conf {
+  appearance: none;
+  background: linear-gradient(180deg, #2c1f24 0%, #1c1317 100%);
+  border: 1px solid #4a2933;
+  border-radius: var(--radius-pill);
+  color: #f095a5;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow:
+    0 2px 0 #0b0709,
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.1s ease;
+}
+
+.btn-remove-conf:hover {
+  background: linear-gradient(180deg, #3d242c 0%, #2a151c 100%);
+  border-color: var(--vfd-crimson);
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(255, 59, 92, 0.35);
+}
+
+.btn-remove-conf:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.75);
+}
+
+/* Segmented Hardware Selector Buttons (Used on Filter Bars) */
+.segmented-control-well {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--chassis-slate-dark);
+  padding: 4px;
+  border-radius: var(--radius-control);
+  border: 1px solid var(--chassis-slate-lip);
+  box-shadow: var(--shadow-recessed-well);
+}
+
+.seg-btn {
+  appearance: none;
+  background: linear-gradient(180deg, #282f3c 0%, #1c222b 100%);
+  border: 1px solid #364152;
+  border-radius: var(--radius-pill);
+  color: var(--ink-secondary);
+  padding: 5px 11px;
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow:
+    0 2px 0 #090b0e,
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.1s ease;
+}
+
+.seg-btn:hover {
+  color: var(--ink-primary);
+  border-color: var(--brass-primary);
+}
+
+.seg-btn:active {
+  transform: translateY(1.5px);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.75);
+}
+
+.seg-btn.active {
+  background: linear-gradient(180deg, #13171e 0%, #1a2129 100%);
+  color: var(--vfd-cyan);
+  border-color: var(--vfd-cyan-border);
+  transform: translateY(1.5px);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.85);
+  text-shadow: var(--vfd-cyan-glow);
+}
+
+.seg-btn.amber-mode.active {
+  color: var(--vfd-amber);
+  border-color: var(--vfd-amber-border);
+  text-shadow: var(--vfd-amber-glow);
+}
+
+/* Recessed Molded Form Inputs & Selects */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.field-group input,
+.field-group select,
+.field-group textarea {
+  background-color: var(--chassis-slate-dark);
+  border: 1px solid var(--chassis-slate-lip);
+  border-radius: var(--radius-control);
+  color: var(--ink-primary);
+  padding: 9px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-recessed-well);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field-group input:focus,
+.field-group select:focus,
+.field-group textarea:focus {
+  outline: none;
+  border-color: var(--brass-primary);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.85),
+    0 0 0 2px var(--brass-glow);
+}
+
+.field-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+/* Phase & Status Pill Badges */
+.phase-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.phase-sr {
+  background-color: var(--vfd-cyan-soft);
+  color: var(--vfd-cyan);
+  border: 1px solid var(--vfd-cyan-border);
+  text-shadow: var(--vfd-cyan-glow);
+}
+
+.phase-pr {
+  background-color: var(--vfd-amber-soft);
+  color: var(--vfd-amber);
+  border: 1px solid var(--vfd-amber-border);
+  text-shadow: var(--vfd-amber-glow);
+}
+
+.phase-del {
+  background-color: var(--vfd-emerald-soft);
+  color: var(--vfd-emerald);
+  border: 1px solid var(--vfd-emerald-border);
+  text-shadow: var(--vfd-emerald-glow);
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "conf-1",
+    "title": "Checkpoint 1: Topic Brainstorming & Driving Questions",
+    "date": "Oct 2026",
+    "phase": "Secondary Research",
+    "status": "Completed",
+    "feedback": "Reviewed the 6 candidate questions in Post 2. Stepper motor back-EMF had confounding friction from internal detent cogging, and optical lens distortion leaned too heavily toward software review. The Gyroscopic Precession topic offers the clearest independent variable (radial mass position of machine screws/washers) and directly measurable dependent variable (precession angular velocity).",
+    "actions": "• Finalize driving question: \"How does shifting a spinning wheel's mass toward its outer rim change how fast it precesses?\"\n• Begin literature review on moment of inertia and review ESP32 + SimpleFOCmini hardware specs."
+  },
+  {
+    "id": "conf-2",
+    "title": "Checkpoint 2: Research Plan, BOM & Gantt Schedule Review",
+    "date": "Nov 10, 2026",
+    "phase": "Secondary Research",
+    "status": "In Progress",
+    "feedback": "Verify that reaction wheel mass stays constant across trials when moving machine screws and washers from inner mounting holes to the outer rim so total gravitational torque remains controlled while moment of inertia (I) changes.",
+    "actions": "• Design symmetrical inner and outer screw mounting rings in Onshape CAD.\n• Confirm 220KV 2804 brushless motor and MT6701 magnetic encoder delivery dates."
+  },
+  {
+    "id": "conf-3",
+    "title": "Checkpoint 3: Physical Build, PID Tuning & Experimental Trials",
+    "date": "Dec 4, 2026",
+    "phase": "Primary Research",
+    "status": "Scheduled",
+    "feedback": "Upcoming conference to inspect 3D-printed frame rigidity, closed-loop RPM stability via MT6701 encoder telemetry, and video tracking setup for measuring precession period.",
+    "actions": "• Log motor angular velocity (ω) via serial telemetry during each precession trial.\n• Record multi-angle slow-motion video with reference protractors for accurate angular speed calculation."
+  },
+  {
+    "id": "conf-4",
+    "title": "Checkpoint 4: Telemetry Analysis & Trifold Presentation Review",
+    "date": "Dec 22, 2026",
+    "phase": "Deliverables",
+    "status": "Scheduled",
+    "feedback": "Final review of experimental graphs comparing theoretical vs. measured precession rates and visual layout of the project trifold.",
+    "actions": "• Plot Precession Speed (rad/s) vs. Calculated Moment of Inertia (kg·m²).\n• Finalize presentation script and trifold diagrams."
+  }
+]

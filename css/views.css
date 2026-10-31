@@ -1,0 +1,848 @@
+/* ==========================================================================
+   VIEWS & RESPONSIVE LAYOUTS // NEO-RETRO INDUSTRIAL DESIGN
+   ========================================================================== */
+
+.workspace {
+  flex: 1;
+  width: 100%;
+  padding: 26px 32px 56px;
+  display: flex;
+  justify-content: center;
+}
+
+.page-view {
+  display: none;
+  width: 100%;
+  animation: powerOnFade 0.18s ease-out;
+}
+
+.page-view.active {
+  display: block;
+}
+
+@keyframes powerOnFade {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-container {
+  width: 100%;
+  max-width: 1780px;
+  margin: 0 auto;
+}
+
+.view-container.wide-1440p {
+  max-width: 2380px;
+}
+
+/* ==========================================================================
+   PAGE 0: HOME // THE GYRO-TRIPTYCH OBSERVATORY
+   ========================================================================== */
+.gyro-triptych-grid,
+.home-bench-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.05fr) minmax(620px, 2.2fr) minmax(290px, 0.95fr);
+  gap: 22px;
+  margin-bottom: 22px;
+  align-items: stretch;
+}
+
+@media (min-width: 1600px) {
+  .gyro-triptych-grid,
+  .home-bench-grid {
+    grid-template-columns: minmax(360px, 1.1fr) minmax(760px, 2.4fr) minmax(320px, 1fr);
+    gap: 26px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .gyro-triptych-grid,
+  .home-bench-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* West Wing: Governing Mechanics & Experimental Thesis */
+.observatory-west-wing {
+  display: flex;
+  flex-direction: column;
+}
+
+.bench-left-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  flex: 1;
+}
+
+.ziggurat-thesis-plinth {
+  margin-bottom: 6px;
+  border-radius: var(--radius-control);
+}
+
+.ziggurat-thesis-plinth .silk-heading {
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+/* Recessed VFD Primary Driving Question Plinth */
+.vfd-question-display {
+  padding: 16px 18px;
+  border-left: 3px solid var(--vfd-amber);
+}
+
+.vq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.vq-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.18rem;
+  color: var(--ink-primary);
+  line-height: 1.4;
+}
+
+/* Dual Digital Equation Readout Counters */
+.counter-pair-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.counter-box {
+  padding: 14px 15px;
+}
+
+.cb-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.cb-eq {
+  font-family: var(--font-pixel);
+  font-size: 0.94rem;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+.cb-note {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--ink-secondary);
+  display: block;
+  line-height: 1.4;
+}
+
+/* Central Chamber: Astrolabe & Vector Oscilloscope */
+.observatory-central-chamber {
+  display: flex;
+  flex-direction: column;
+}
+
+.scope-bezel-wrap {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 1;
+}
+
+.crt-screen {
+  width: 100%;
+  min-height: 340px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-module);
+}
+
+.scope-graticule-svg {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  display: block;
+}
+
+/* Layer 1: Continuously Rotating Rotor Assembly */
+#rotor-spinning-assembly,
+.rotating-rotor {
+  transform-origin: 240px 240px;
+  animation: rotorContinuousSpin var(--rotor-spin-duration, 3s) linear infinite;
+}
+
+@keyframes rotorContinuousSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Layer 2: Radial Screw & Washer Translation */
+.m3-screw-washer {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+}
+
+.m3-screw-washer.at-inner {
+  transform: translate(44px, 0);
+}
+
+.m3-screw-washer.at-outer {
+  transform: translate(82px, 0);
+}
+
+.m3-screw-washer.at-inner .washer-disc {
+  fill: #1f383a;
+  stroke: var(--vfd-cyan);
+  filter: drop-shadow(0 0 4px rgba(0, 240, 208, 0.5));
+}
+
+.m3-screw-washer.at-outer .washer-disc {
+  fill: #3a2e22;
+  stroke: var(--vfd-amber);
+  filter: drop-shadow(0 0 5px rgba(255, 159, 28, 0.55));
+}
+
+/* Layer 3: PCB Conduits & Traveling Signal Pulses */
+.pcb-trace-track {
+  opacity: 0.65;
+}
+
+@keyframes pulseOutbound {
+  from {
+    stroke-dashoffset: 32;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulseInbound {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 32;
+  }
+}
+
+.pulse-outbound {
+  animation: pulseOutbound var(--pulse-period, 1.2s) linear infinite;
+}
+
+.pulse-inbound {
+  animation: pulseInbound var(--pulse-period, 1.2s) linear infinite;
+}
+
+/* Layer 4: Dynamic Momentum & Torque Vectors */
+.vector-line {
+  transition: stroke-width 0.3s ease;
+}
+
+/* East Wing: Hardware Bus Telemetry */
+.observatory-east-wing {
+  display: flex;
+  flex-direction: column;
+}
+
+.hardware-bus-panel,
+.hardware-bus-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 16px 8px;
+  flex: 1;
+}
+
+.bus-slot {
+  background: linear-gradient(180deg, #161920 0%, #12151a 100%);
+  border: 1px solid #28303c;
+  border-radius: var(--radius-control);
+  padding: 10px 14px;
+  box-shadow: var(--shadow-recessed-well);
+}
+
+.bs-ch {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--vfd-amber);
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.bs-part {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--ink-primary);
+  display: block;
+}
+
+.bs-desc {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  line-height: 1.35;
+}
+
+/* Bottom Flank: Tactile Controls Deck */
+.observatory-bottom-flank {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.observatory-controls-deck,
+.scope-control-bar {
+  padding: 12px 18px;
+  background: linear-gradient(180deg, #161920 0%, #12151b 100%);
+  border: 1px solid #262d38;
+  border-radius: var(--radius-module);
+  box-shadow: var(--shadow-recessed-well);
+  margin-bottom: 2px;
+}
+
+.tactile-control-deck-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.scope-control-group,
+.tactile-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scope-ctrl-label {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tactile-annunciators {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Accessibility: Prefers-Reduced-Motion */
+@media (prefers-reduced-motion: reduce) {
+  #rotor-spinning-assembly,
+  .rotating-rotor,
+  .pulse-outbound,
+  .pulse-inbound {
+    animation: none !important;
+  }
+  .m3-screw-washer {
+    transition: none !important;
+  }
+}
+
+/* Bottom 4 Tactile Bank Selector Modules */
+.bank-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.bank-card {
+  appearance: none;
+  text-align: left;
+  width: 100%;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(180deg, #222730 0%, #191d24 100%);
+  border: 1px solid #2f3744;
+  border-radius: var(--radius-housing);
+  box-shadow: var(--shadow-keycap-rest);
+  transition:
+    transform 0.1s cubic-bezier(0.2, 0, 0.2, 1),
+    box-shadow 0.1s cubic-bezier(0.2, 0, 0.2, 1),
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.bank-card:hover {
+  background: linear-gradient(180deg, #272d37 0%, #1d222a 100%);
+  border-color: var(--vfd-cyan-border);
+  box-shadow: var(--shadow-keycap-hover);
+  transform: translateY(-1px);
+}
+
+.bank-card:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-keycap-active);
+}
+
+.bank-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bank-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: var(--ink-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 6px;
+}
+
+.bank-card p {
+  font-family: var(--font-sans);
+  font-size: 0.87rem;
+  color: var(--ink-secondary);
+  line-height: 1.55;
+}
+
+.bank-card-footer {
+  padding-top: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--vfd-cyan);
+}
+
+/* ==========================================================================
+   PAGE 1: POST 1 // THINGS I'M PASSIONATE ABOUT (5-MODULE RACK)
+   ========================================================================== */
+.passions-rack-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 22px;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.span-3 {
+  grid-column: span 3;
+}
+
+.passion-vfd-graphic {
+  height: 132px;
+  margin: 16px 18px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.passion-vfd-graphic svg {
+  width: 100%;
+  height: 100%;
+  max-height: 108px;
+}
+
+.passion-module-body {
+  padding: 18px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.passion-module-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.18rem;
+  color: var(--ink-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.passion-module-text {
+  font-size: 0.93rem;
+  color: var(--ink-secondary);
+  line-height: 1.66;
+}
+
+/* ==========================================================================
+   PAGE 2: POST 2 // DRIVING QUESTIONS & AI EVALUATION MATRIX
+   ========================================================================== */
+.selected-hypothesis-rack {
+  margin-bottom: 24px;
+}
+
+.selected-hypothesis-inner {
+  padding: 20px;
+}
+
+.hypothesis-stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stage-vfd-box {
+  padding: 16px 18px;
+  border-top: 2px solid var(--abs-border-strong);
+}
+
+.stage-vfd-box.locked-target {
+  border-top: 2px solid var(--vfd-cyan);
+  background-color: rgba(0, 240, 208, 0.04);
+}
+
+.stage-step-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--vfd-amber);
+  letter-spacing: 0.08em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stage-vfd-box.locked-target .stage-step-tag {
+  color: var(--vfd-cyan);
+}
+
+.stage-body-copy {
+  font-size: 0.92rem;
+  color: var(--ink-secondary);
+  line-height: 1.58;
+}
+
+.stage-vfd-box.locked-target .stage-body-copy {
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: var(--ink-primary);
+}
+
+/* Candidate Matrix Table */
+.retro-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.retro-matrix-table thead {
+  background-color: #12151b;
+  border-bottom: 1px solid var(--abs-border-strong);
+}
+
+.retro-matrix-table th {
+  padding: 13px 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--vfd-amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-right: 1px solid #242a34;
+}
+
+.retro-matrix-table th:last-child {
+  border-right: none;
+}
+
+.retro-matrix-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #242a34;
+  border-right: 1px solid #242a34;
+  vertical-align: top;
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+  line-height: 1.58;
+}
+
+.retro-matrix-table td:last-child {
+  border-right: none;
+}
+
+.retro-matrix-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
+.retro-matrix-table tbody tr.selected-row {
+  background-color: rgba(0, 240, 208, 0.065);
+}
+
+.retro-matrix-table tbody tr.selected-row td:first-child {
+  border-left: 3px solid var(--vfd-cyan);
+}
+
+.cand-slot-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.cand-slot-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--ink-primary);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   PAGE 3: POST 3 // 1440P SPLIT-VIEW GANTT & MILESTONE BREAKDOWN
+   ========================================================================== */
+.split-1440p-grid {
+  display: grid;
+  grid-template-columns: minmax(640px, 45%) minmax(740px, 55%);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.milestone-table {
+  width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.milestone-table thead {
+  background-color: #12151b;
+  border-bottom: 1px solid var(--abs-border-strong);
+}
+
+.milestone-table th {
+  padding: 12px 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.76rem;
+  color: var(--vfd-amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.milestone-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #252b35;
+  vertical-align: top;
+  font-size: 0.89rem;
+  transition: background-color 0.14s ease;
+}
+
+.milestone-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.milestone-table tbody tr.ms-row {
+  cursor: pointer;
+}
+
+.milestone-table tbody tr.ms-row:hover,
+.milestone-table tbody tr.ms-row.highlighted {
+  background-color: rgba(0, 240, 208, 0.085);
+}
+
+.ms-header-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.ms-code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-primary);
+  background-color: #101318;
+  border: 1px solid var(--abs-border-strong);
+  border-radius: var(--radius-pill);
+  padding: 2px 7px;
+}
+
+.ms-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.96rem;
+  color: var(--ink-primary);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.ms-dates {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--vfd-amber);
+  display: block;
+}
+
+.ms-desc {
+  color: var(--ink-secondary);
+  line-height: 1.56;
+}
+
+.gantt-vfd-screen {
+  flex: 1;
+  margin: 16px;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: var(--radius-module);
+}
+
+#gantt-container {
+  width: 100%;
+  display: block;
+}
+
+#gantt-container svg {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+/* ==========================================================================
+   PAGE 4: CONFERENCING LOG (ADD, REMOVE & INLINE EDIT CHECKPOINTS)
+   ========================================================================== */
+.conf-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.conf-drawer {
+  display: none;
+  padding: 22px;
+  margin-bottom: 24px;
+  border-left: 3px solid var(--vfd-cyan);
+}
+
+.conf-drawer.open {
+  display: block;
+}
+
+.drawer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.conf-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.conf-log-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.conf-log-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--ink-primary);
+}
+
+.conf-box {
+  padding: 13px 16px;
+}
+
+.conf-box-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.conf-box-text {
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+  line-height: 1.58;
+  white-space: pre-line;
+}
+
+[contenteditable="true"] {
+  outline: 1px dashed var(--vfd-cyan);
+  background-color: rgba(0, 240, 208, 0.06);
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  cursor: text;
+}
+
+[contenteditable="true"]:focus {
+  outline: 2px solid var(--vfd-amber);
+  background-color: rgba(255, 159, 28, 0.08);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1480px) {
+  .split-1440p-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1200px) {
+  .home-bench-grid,
+  .bank-cards-grid,
+  .hypothesis-stages,
+  .conf-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .passions-rack-grid {
+    grid-template-columns: 1fr;
+  }
+  .span-2, .span-3 {
+    grid-column: span 1;
+  }
+  .drawer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .instrument-rack-header {
+    flex-wrap: wrap;
+  }
+}

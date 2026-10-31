@@ -1,0 +1,86 @@
+{
+  "post1": {
+    "topics": [
+      {
+        "id": "computers",
+        "title": "Computers and Software",
+        "keywords": ["TypeScript", "compiler", "systems", "architecture", "Linux"]
+      },
+      {
+        "id": "electronics",
+        "title": "Electronics and Hardware",
+        "keywords": ["ESP32", "SimpleFOC", "BLDC", "circuits", "oscilloscope", "microcontroller"]
+      },
+      {
+        "id": "music",
+        "title": "Music",
+        "keywords": ["guitar", "piano", "composition", "harmony", "audio"]
+      },
+      {
+        "id": "videogames",
+        "title": "Video Games",
+        "keywords": ["game engine", "mechanics", "simulation", "interactive"]
+      },
+      {
+        "id": "history",
+        "title": "History and Politics",
+        "keywords": ["societal", "institutions", "historical", "policy"]
+      }
+    ]
+  },
+  "post2": {
+    "primary_candidate": {
+      "ref": "CAND-05",
+      "topic": "Gyroscopic Precession & Reaction Wheel Dynamics",
+      "question": "How does shifting a spinning wheel's mass toward its outer rim change how fast it precesses?"
+    },
+    "gemini_link": "https://share.gemini.google/1Isc2ZbPU9xN",
+    "candidates_count": 6
+  },
+  "post3": {
+    "milestones": [
+      {
+        "id": "sr1",
+        "phase": "Secondary Research",
+        "title": "Initial Research & Documentation",
+        "startDate": "2026-11-01",
+        "endDate": "2026-11-07"
+      },
+      {
+        "id": "sr2",
+        "phase": "Secondary Research",
+        "title": "Analyze Math & Finalize Hardware",
+        "startDate": "2026-11-07",
+        "endDate": "2026-11-16"
+      },
+      {
+        "id": "pr1",
+        "phase": "Primary Research",
+        "title": "Draft CAD & 3D Printing",
+        "startDate": "2026-11-16",
+        "endDate": "2026-11-23"
+      },
+      {
+        "id": "pr2",
+        "phase": "Primary Research",
+        "title": "Solder, Wire & Code PID",
+        "startDate": "2026-11-23",
+        "endDate": "2026-12-07"
+      },
+      {
+        "id": "pr3",
+        "phase": "Primary Research",
+        "title": "Precession Experiments & Video",
+        "startDate": "2026-12-07",
+        "endDate": "2026-12-19"
+      },
+      {
+        "id": "del1",
+        "phase": "Deliverables",
+        "title": "Data Analysis & Trifold Design",
+        "startDate": "2026-12-19",
+        "endDate": "2027-01-05"
+      }
+    ]
+  }
+}

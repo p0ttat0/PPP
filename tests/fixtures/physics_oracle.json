@@ -1,0 +1,95 @@
+{
+  "constants": {
+    "I0": 0.82e-4,
+    "movable_mass_kg": 0.036,
+    "r_inner_m": 0.036,
+    "r_outer_m": 0.068,
+    "torque_nm": 0.048
+  },
+  "configurations": {
+    "inner": {
+      "radius_mm": 36,
+      "radius_m": 0.036,
+      "I_added": 0.46656e-4,
+      "I_total": 1.28656e-4,
+      "I_total_display": "1.29e-4 kg·m²",
+      "I_total_scaled": 1.29
+    },
+    "outer": {
+      "radius_mm": 68,
+      "radius_m": 0.068,
+      "I_added": 1.66464e-4,
+      "I_total": 2.48464e-4,
+      "I_total_display": "2.48e-4 kg·m²",
+      "I_total_scaled": 2.48
+    }
+  },
+  "states": [
+    {
+      "rpm": 1200,
+      "config": "inner",
+      "omega_rad_s": 125.66370614359172,
+      "I_kg_m2": 1.28656e-4,
+      "L_nms": 0.016167448789327856,
+      "omega_p_rad_s": 2.968933096058913,
+      "omega_p_display": "2.97 rad/s",
+      "precession_period_s": 2.1163102377287954,
+      "rotor_spin_duration_s": 6.0
+    },
+    {
+      "rpm": 1200,
+      "config": "outer",
+      "omega_rad_s": 125.66370614359172,
+      "I_kg_m2": 2.48464e-4,
+      "L_nms": 0.03122291530325327,
+      "omega_p_rad_s": 1.5373324225026217,
+      "omega_p_display": "1.54 rad/s",
+      "precession_period_s": 4.086939521348122,
+      "rotor_spin_duration_s": 6.0
+    },
+    {
+      "rpm": 2400,
+      "config": "inner",
+      "omega_rad_s": 251.32741228718345,
+      "I_kg_m2": 1.28656e-4,
+      "L_nms": 0.03233489757865571,
+      "omega_p_rad_s": 1.4844665480294565,
+      "omega_p_display": "1.48 rad/s",
+      "precession_period_s": 4.232620475457591,
+      "rotor_spin_duration_s": 3.0
+    },
+    {
+      "rpm": 2400,
+      "config": "outer",
+      "omega_rad_s": 251.32741228718345,
+      "I_kg_m2": 2.48464e-4,
+      "L_nms": 0.06244583060650654,
+      "omega_p_rad_s": 0.7686662112513108,
+      "omega_p_display": "0.77 rad/s",
+      "precession_period_s": 8.173879042696244,
+      "rotor_spin_duration_s": 3.0
+    },
+    {
+      "rpm": 3600,
+      "config": "inner",
+      "omega_rad_s": 376.9911184307752,
+      "I_kg_m2": 1.28656e-4,
+      "L_nms": 0.04850234636798357,
+      "omega_p_rad_s": 0.989644365352971,
+      "omega_p_display": "0.99 rad/s",
+      "precession_period_s": 6.348930713186386,
+      "rotor_spin_duration_s": 2.0
+    },
+    {
+      "rpm": 3600,
+      "config": "outer",
+      "omega_rad_s": 376.9911184307752,
+      "I_kg_m2": 2.48464e-4,
+      "L_nms": 0.09366874590975981,
+      "omega_p_rad_s": 0.5124441408342072,
+      "omega_p_display": "0.51 rad/s",
+      "precession_period_s": 12.260818564044366,
+      "rotor_spin_duration_s": 2.0
+    }
+  ]
+}
