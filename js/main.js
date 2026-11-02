@@ -9,10 +9,16 @@ import { ensureGanttRendered } from './gantt.js';
 import { initOscilloscope } from './oscilloscope.js';
 import { initConferencing } from './conferencing.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+function bootstrap() {
   initOscilloscope();
   initConferencing();
   initNavigation({
     onEnterPost3: () => ensureGanttRendered()
   });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrap);
+} else {
+  bootstrap();
+}

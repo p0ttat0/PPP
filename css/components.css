@@ -484,7 +484,7 @@
 .rocker-switch {
   position: relative;
   display: flex;
-  width: 176px;
+  width: 280px;
   height: 40px;
   background: #0f1217;
   border-radius: var(--radius-control);
@@ -494,7 +494,7 @@
   border: 1px solid #252b36;
 }
 
-.rocker-paddle {
+.rocker-switch .rocker-paddle {
   width: 50%;
   height: 100%;
   display: flex;
@@ -502,7 +502,10 @@
   justify-content: center;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  padding: 0 6px !important;
+  overflow: visible;
   color: var(--ink-muted);
   transition:
     transform 0.16s cubic-bezier(0.2, 0, 0.2, 1),
@@ -525,7 +528,7 @@
 
 /* Inner 36mm Active State: Left depressed (rotateY -12deg), Right tilted out */
 .rocker-switch[data-state="inner"] .paddle-inner {
-  transform: rotateY(-12deg);
+  transform: translateZ(32px) rotateY(-12deg);
   background: linear-gradient(180deg, #11151c 0%, #1a222d 100%);
   color: var(--vfd-cyan);
   box-shadow:
@@ -536,14 +539,14 @@
 }
 
 .rocker-switch[data-state="inner"] .paddle-outer {
-  transform: rotateY(-12deg);
+  transform: translateZ(32px) rotateY(-12deg);
   box-shadow: 3px 0 8px rgba(0, 0, 0, 0.6);
-  opacity: 0.75;
+  color: var(--ink-secondary);
 }
 
 /* Outer 68mm Active State: Right depressed (rotateY 12deg), Left tilted out */
 .rocker-switch[data-state="outer"] .paddle-outer {
-  transform: rotateY(12deg);
+  transform: translateZ(32px) rotateY(12deg);
   background: linear-gradient(180deg, #11151c 0%, #1a222d 100%);
   color: var(--vfd-amber);
   box-shadow:
@@ -554,9 +557,9 @@
 }
 
 .rocker-switch[data-state="outer"] .paddle-inner {
-  transform: rotateY(12deg);
+  transform: translateZ(32px) rotateY(12deg);
   box-shadow: -3px 0 8px rgba(0, 0, 0, 0.6);
-  opacity: 0.75;
+  color: var(--ink-secondary);
 }
 
 /* ==========================================================================
