@@ -13,16 +13,16 @@ export const CHART_DEFINITION = `gantt
     todayMarker off
 
     section Secondary Research
-    Initial Research & Documentation :sr1, 2026-11-01, 2026-11-07
-    Analyze Math & Finalize Hardware :sr2, 2026-11-07, 2026-11-16
+    Finalize Parts List & Hardware Orders :sr1, 2026-11-01, 2026-11-07
+    Secondary Research & Math Relations   :sr2, 2026-11-07, 2026-11-16
 
     section Primary Research
-    Draft CAD & 3D Printing          :pr1, 2026-11-16, 2026-11-23
-    Solder, Wire & Code PID          :pr2, 2026-11-23, 2026-12-07
-    Precession Experiments & Video   :pr3, 2026-12-07, 2026-12-19
+    Draft CAD & 3D Printing               :pr1, 2026-11-06, 2026-11-23
+    Solder, Wire & Code PID               :pr2, 2026-11-23, 2026-12-07
+    Precession Experiments & Video        :pr3, 2026-12-07, 2026-12-19
 
     section Deliverables
-    Data Analysis & Trifold Design   :del1, 2026-12-19, 2027-01-05
+    Data Analysis & Trifold Design        :del1, 2026-12-19, 2027-01-05
 `;
 
 let isMermaidInitialized = false;
@@ -70,15 +70,21 @@ function buildFallbackGanttSvg() {
     <text class="sectionTitle" x="14" y="242" fill="#d4a853" font-family="Federo, sans-serif" font-weight="700" font-size="12" letter-spacing="0.06em">PRIMARY RESEARCH</text>
     <text class="sectionTitle" x="14" y="362" fill="#d4a853" font-family="Federo, sans-serif" font-weight="700" font-size="12" letter-spacing="0.06em">DELIVERABLES</text>
 
+    <!-- Current Date Marker (Nov 06, 2026) -->
+    <g class="today-marker">
+      <line x1="241" y1="26" x2="241" y2="388" stroke="#00f0d0" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.75"/>
+      <text x="241" y="20" text-anchor="middle" fill="#00f0d0" font-family="Share Tech Mono, monospace" font-size="10" font-weight="700" letter-spacing="0.06em">TODAY // NOV 06</text>
+    </g>
+
     <!-- Task Bars & Non-Overlapping Labels -->
     <rect id="sr1" x="175" y="42" width="79" height="44" rx="4" ry="4" fill="rgba(0, 240, 208, 0.22)" stroke="#00f0d0" stroke-width="2"/>
-    <text class="taskTextOutsideRight" x="262" y="69" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Initial Research &amp; Documentation</text>
+    <text class="taskTextOutsideRight" x="262" y="69" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Finalize Parts List &amp; Hardware Orders</text>
 
-    <rect id="sr2" x="254" y="98" width="118" height="44" rx="4" ry="4" fill="rgba(0, 240, 208, 0.22)" stroke="#00f0d0" stroke-width="2"/>
-    <text class="taskTextOutsideRight" x="380" y="125" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Analyze Math &amp; Finalize Hardware</text>
+    <rect id="sr2" x="254" y="98" width="118" height="44" rx="4" ry="4" fill="rgba(0, 240, 208, 0.14)" stroke="#00f0d0" stroke-width="2" stroke-dasharray="5,3"/>
+    <text class="taskTextOutsideRight" x="380" y="125" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Secondary Research &amp; Math Relations</text>
 
-    <rect id="pr1" x="372" y="160" width="92" height="44" rx="4" ry="4" fill="rgba(255, 159, 28, 0.22)" stroke="#ff9f1c" stroke-width="2"/>
-    <text class="taskTextOutsideRight" x="472" y="187" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Draft CAD &amp; 3D Printing</text>
+    <rect id="pr1" x="241" y="160" width="223" height="44" rx="4" ry="4" fill="rgba(255, 159, 28, 0.22)" stroke="#ff9f1c" stroke-width="2"/>
+    <text class="taskText" x="352" y="187" text-anchor="middle" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Draft CAD &amp; 3D Printing</text>
 
     <rect id="pr2" x="464" y="216" width="184" height="44" rx="4" ry="4" fill="rgba(255, 159, 28, 0.22)" stroke="#ff9f1c" stroke-width="2"/>
     <text class="taskText" x="556" y="243" text-anchor="middle" fill="#eef0f4" font-family="Share Tech Mono, monospace" font-size="12" font-weight="600">Solder, Wire &amp; Code PID</text>

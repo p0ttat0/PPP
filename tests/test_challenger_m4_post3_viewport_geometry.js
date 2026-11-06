@@ -240,7 +240,7 @@ export function runEmpiricalVerification(rootDir = process.cwd()) {
     // Date range in HTML
     if (ms.id === 'sr1') assert(rowContent.includes('Nov 1, 2026') && rowContent.includes('Nov 6, 2026'), 'sr1 date window must be Nov 1 - Nov 6, 2026');
     if (ms.id === 'sr2') assert(rowContent.includes('Nov 7, 2026') && rowContent.includes('Nov 15, 2026'), 'sr2 date window must be Nov 7 - Nov 15, 2026');
-    if (ms.id === 'pr1') assert(rowContent.includes('Nov 16, 2026') && rowContent.includes('Nov 22, 2026'), 'pr1 date window must be Nov 16 - Nov 22, 2026');
+    if (ms.id === 'pr1') assert(rowContent.includes('Nov 6, 2026') && rowContent.includes('Nov 22, 2026'), 'pr1 date window must be Nov 6 - Nov 22, 2026');
     if (ms.id === 'pr2') assert(rowContent.includes('Nov 23, 2026') && rowContent.includes('Dec 6, 2026'), 'pr2 date window must be Nov 23 - Dec 6, 2026');
     if (ms.id === 'pr3') assert(rowContent.includes('Dec 7, 2026') && rowContent.includes('Dec 18, 2026'), 'pr3 date window must be Dec 7 - Dec 18, 2026');
     if (ms.id === 'del1') assert(rowContent.includes('Dec 19, 2026') && rowContent.includes('Jan 4, 2027'), 'del1 date window must be Dec 19, 2026 - Jan 4, 2027');
@@ -251,15 +251,15 @@ export function runEmpiricalVerification(rootDir = process.cwd()) {
     const descText = descMatch ? descMatch[1].trim() : '';
 
     if (ms.id === 'sr1') {
-      const expectedDesc = 'Gather pre-existing research on moment of inertia and gyroscopic precession. Review ESP32, ICM-20948 IMU, and SimpleFOCmini documentation. Complete initial secondary research steps.';
+      const expectedDesc = 'Review ESP32, ICM-20948 IMU, 220KV 2804 motor, MT6701 encoder, and SimpleFOCmini documentation. Finalize the parts list, place all hardware orders, and organize experimental parameters.';
       assert(descText === expectedDesc, `sr1 description must match verbatim:\n"${descText}"`);
     }
     if (ms.id === 'sr2') {
-      const expectedDesc = 'Analyze the mathematical relationship between mass distribution and precession speed. Finalize hardware orders and organize experimental parameters.';
+      const expectedDesc = 'Gather pre-existing secondary research on moment of inertia and gyroscopic precession. Look for and analyze the mathematical relationships between radial mass distribution and precession speed while awaiting hardware delivery.';
       assert(descText === expectedDesc, `sr2 description must match verbatim:\n"${descText}"`);
     }
     if (ms.id === 'pr1') {
-      const expectedDesc = 'Begin primary research and physical construction. Draft the Onshape CAD files. Run 3D prints for the frame and the multiple reaction wheel variations.';
+      const expectedDesc = 'Begin primary research and physical construction early by drafting the Onshape CAD files while hardware orders ship. Run 3D prints for the frame and the multiple reaction wheel variations.';
       assert(descText === expectedDesc, `pr1 description must match verbatim:\n"${descText}"`);
     }
     if (ms.id === 'pr2') {
@@ -287,13 +287,13 @@ export function runEmpiricalVerification(rootDir = process.cwd()) {
     assert(durationDays >= 1, `Milestone ${ms.id} duration (${durationDays} days) must be >= 1 day`);
   });
 
-  // Check milestone continuity: no temporal gaps or date inversions
+  // Check milestone continuity: no temporal gaps between milestones
   for (let i = 0; i < expectedMilestones.length - 1; i++) {
     const curEnd = expectedMilestones[i].endDate;
     const nextStart = expectedMilestones[i + 1].startDate;
     assert(
-      curEnd === nextStart,
-      `Milestone ${expectedMilestones[i].id} end date (${curEnd}) must seamlessly meet ${expectedMilestones[i+1].id} start date (${nextStart})`
+      new Date(nextStart) <= new Date(curEnd),
+      `Milestone ${expectedMilestones[i].id} end date (${curEnd}) must meet or overlap ${expectedMilestones[i+1].id} start date (${nextStart})`
     );
   }
 

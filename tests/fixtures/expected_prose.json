@@ -42,14 +42,14 @@
       {
         "id": "sr1",
         "phase": "Secondary Research",
-        "title": "Initial Research & Documentation",
+        "title": "Finalize Parts List & Hardware Orders",
         "startDate": "2026-11-01",
         "endDate": "2026-11-07"
       },
       {
         "id": "sr2",
         "phase": "Secondary Research",
-        "title": "Analyze Math & Finalize Hardware",
+        "title": "Secondary Research & Math Relations",
         "startDate": "2026-11-07",
         "endDate": "2026-11-16"
       },
@@ -57,7 +57,7 @@
         "id": "pr1",
         "phase": "Primary Research",
         "title": "Draft CAD & 3D Printing",
-        "startDate": "2026-11-16",
+        "startDate": "2026-11-06",
         "endDate": "2026-11-23"
       },
       {
