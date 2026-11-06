@@ -61,6 +61,10 @@ export async function run(ctx) {
     hasOverflowProtection,
     'CSS must enforce box-sizing or overflow-x protection to prevent horizontal scroll'
   );
+  assertTrue(
+    viewsCss.includes('@media (max-width: 768px)') && viewsCss.includes('@media (min-width: 2000px)'),
+    'views.css must include mobile (@media (max-width: 768px)) and 1440p (@media (min-width: 2000px)) scaling rules'
+  );
 
   return {
     name: 'Tier 4: Scenario - 1080p & 1440p Viewport Geometry Verification',
