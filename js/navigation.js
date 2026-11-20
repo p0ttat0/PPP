@@ -2,7 +2,7 @@
    NAVIGATION MODULE // SPA VIEW ROUTING & BANK SELECTOR STATE
    ========================================================================== */
 
-const VALID_VIEWS = new Set(['home', 'post1', 'post2', 'post3', 'conferencing']);
+const VALID_VIEWS = new Set(['home', 'post1', 'post2', 'post3', 'post4', 'conferencing']);
 
 /**
  * Initializes top console bank switches, brand home trigger, and home bank cards.
@@ -49,6 +49,13 @@ export function initNavigation(callbacks = {}) {
 
     if (targetKey === 'post3' && typeof callbacks.onEnterPost3 === 'function') {
       await callbacks.onEnterPost3();
+      if (navSeq !== currentNavSeq) {
+        return;
+      }
+    }
+
+    if (targetKey === 'post4' && typeof callbacks.onEnterPost4 === 'function') {
+      await callbacks.onEnterPost4();
       if (navSeq !== currentNavSeq) {
         return;
       }

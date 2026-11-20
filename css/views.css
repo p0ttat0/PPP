@@ -370,11 +370,11 @@
   }
 }
 
-/* Bottom 4 Tactile Bank Selector Modules */
+/* Bottom 5 Tactile Bank Selector Modules */
 .bank-cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
 
 .bank-card {
@@ -1607,9 +1607,6 @@
     width: 100%;
     display: flex;
   }
-  .bank-switch-group li:last-child {
-    grid-column: span 2;
-  }
   .bank-btn {
     width: 100%;
     justify-content: center;
@@ -1955,9 +1952,6 @@
   .bank-switch-group {
     grid-template-columns: repeat(2, 1fr);
   }
-  .bank-switch-group li:last-child {
-    grid-column: span 2;
-  }
   .vfd-banner-bar .annunciator-grid,
   .tactile-annunciators,
   .segmented-control-well {
@@ -1966,6 +1960,286 @@
   .rheostat-assembly,
   .hardware-fader-group {
     flex-wrap: wrap;
+  }
+}
+
+/* ==========================================================================
+   PAGE 4: POST 4 // INTERACTIVE DRAGGABLE RESEARCH MINDMAP
+   ========================================================================== */
+.mindmap-chassis {
+  display: flex;
+  flex-direction: column;
+}
+
+.mindmap-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 18px;
+  background: linear-gradient(180deg, #161b23 0%, #11151b 100%);
+  border-bottom: 1px solid #262e3b;
+}
+
+.mm-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mm-zoom-controls .seg-btn {
+  min-width: 34px;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mindmap-stage {
+  position: relative;
+  width: 100%;
+  height: 760px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  border-radius: 0 0 var(--radius-module) var(--radius-module);
+}
+
+.mindmap-stage.is-panning {
+  cursor: grabbing;
+}
+
+.mindmap-world {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2200px;
+  height: 1400px;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.mindmap-edges-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.mm-edge {
+  opacity: 0.68;
+  transition: opacity 0.2s ease, stroke-width 0.2s ease;
+  filter: drop-shadow(0 0 4px rgba(0, 240, 208, 0.2));
+}
+
+.mm-edge.mm-edge-dimmed {
+  opacity: 0.12;
+}
+
+.mindmap-nodes-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mm-node {
+  position: absolute;
+  width: 278px;
+  background: linear-gradient(180deg, #1a202a 0%, #11151c 100%);
+  border: 1.5px solid var(--mm-accent, var(--brass-primary));
+  border-radius: var(--radius-module);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.72),
+    0 0 14px color-mix(in srgb, var(--mm-accent, #d4a853) 18%, transparent);
+  cursor: grab;
+  transition: box-shadow 0.15s ease, opacity 0.2s ease, border-color 0.15s ease;
+  z-index: 5;
+}
+
+.mm-node.mm-tier-root {
+  width: 332px;
+  border-width: 2px;
+  background: linear-gradient(180deg, #212632 0%, #12161e 100%);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.85),
+    0 0 24px rgba(212, 168, 83, 0.28);
+  z-index: 8;
+}
+
+.mm-node.mm-tier-branch {
+  width: 296px;
+  border-top-width: 3px;
+  z-index: 6;
+}
+
+.mm-node.is-dragging {
+  cursor: grabbing;
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.9),
+    0 0 22px color-mix(in srgb, var(--mm-accent, #d4a853) 45%, transparent);
+}
+
+.mm-node.mm-dimmed {
+  opacity: 0.22;
+}
+
+.mm-node-head {
+  padding: 12px 14px;
+}
+
+.mm-node-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+
+.mm-node-tag {
+  color: var(--mm-accent, var(--brass-bright));
+  font-weight: 700;
+}
+
+.mm-drag-grip {
+  color: var(--ink-muted);
+  opacity: 0.75;
+}
+
+.mm-node-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.96rem;
+  color: var(--ink-primary);
+  line-height: 1.28;
+  margin-bottom: 10px;
+}
+
+.mm-node.mm-tier-root .mm-node-title {
+  font-size: 1.08rem;
+  color: var(--brass-bright);
+}
+
+.mm-node-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mm-node-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--ink-secondary);
+  background: #0a0d12;
+  border: 1px solid #262f3d;
+  border-radius: var(--radius-pill);
+  padding: 2px 8px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mm-toggle-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg, #252d3a 0%, #171c24 100%);
+  border: 1px solid color-mix(in srgb, var(--mm-accent, #d4a853) 55%, #2b3444);
+  color: var(--mm-accent, var(--vfd-cyan));
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.12s ease, transform 0.08s ease;
+}
+
+.mm-toggle-btn:hover {
+  background: linear-gradient(180deg, #303a4b 0%, #1f2632 100%);
+  color: #ffffff;
+}
+
+.mm-toggle-btn:active {
+  transform: translateY(1px);
+}
+
+.mm-chevron {
+  display: inline-block;
+  transition: transform 0.16s ease;
+}
+
+.mm-node.is-open .mm-chevron {
+  transform: rotate(180deg);
+}
+
+.mm-dropdown {
+  border-top: 1px dashed #2a3444;
+  background: #090c10;
+  padding: 10px 14px 12px;
+  border-radius: 0 0 calc(var(--radius-module) - 2px) calc(var(--radius-module) - 2px);
+  cursor: default;
+  user-select: text;
+}
+
+.mm-notes-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.48;
+  color: var(--ink-secondary);
+}
+
+.mm-notes-list li::marker {
+  color: var(--mm-accent, var(--brass-primary));
+}
+
+@media (min-width: 2000px) {
+  .mindmap-stage {
+    height: 920px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .mindmap-stage {
+    height: 680px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mindmap-toolbar {
+    padding: 10px 12px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mm-toolbar-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .mm-toolbar-group .tactile-action-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 7px 10px;
+    font-size: 0.72rem;
+  }
+  .mindmap-stage {
+    height: 580px;
   }
 }
 

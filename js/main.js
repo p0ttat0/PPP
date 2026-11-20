@@ -6,6 +6,7 @@
 
 import { initNavigation } from './navigation.js';
 import { ensureGanttRendered } from './gantt.js';
+import { ensureMindmapVisible } from './mindmap.js';
 import { initOscilloscope } from './oscilloscope.js';
 import { initConferencing } from './conferencing.js';
 
@@ -13,7 +14,8 @@ function bootstrap() {
   initOscilloscope();
   initConferencing();
   initNavigation({
-    onEnterPost3: () => ensureGanttRendered()
+    onEnterPost3: () => ensureGanttRendered(),
+    onEnterPost4: () => ensureMindmapVisible()
   });
 }
 

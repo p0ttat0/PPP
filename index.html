@@ -128,6 +128,12 @@
           </button>
         </li>
         <li role="presentation">
+          <button type="button" class="bank-btn" role="tab" aria-selected="false" data-target="post4">
+            <span class="btn-led" aria-hidden="true"></span>
+            <span>Post 4</span>
+          </button>
+        </li>
+        <li role="presentation">
           <button type="button" class="bank-btn tab-conf" role="tab" aria-selected="false" data-target="conferencing">
             <span class="btn-led" aria-hidden="true"></span>
             <span>Conferencing</span>
@@ -688,6 +694,21 @@
               </div>
               <div class="bank-card-footer">
                 <span>SELECT BANK 03</span>
+                <span>OPEN MODULE &rarr;</span>
+              </div>
+            </button>
+
+            <button type="button" class="bank-card" data-nav="post4">
+              <div>
+                <div class="bank-card-top">
+                  <span class="module-index-tag emerald">BANK 04</span>
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);">22 NODES</span>
+                </div>
+                <h3>Post 4 // Research Mindmap</h3>
+                <p>Interactive draggable mindmap with expandable jot-note dropdowns covering rotational inertia, precession, reaction wheels, CMGs, and impact.</p>
+              </div>
+              <div class="bank-card-footer" style="color: var(--vfd-emerald);">
+                <span>SELECT BANK 04</span>
                 <span>OPEN MODULE &rarr;</span>
               </div>
             </button>
@@ -1653,7 +1674,99 @@
     </section>
 
     <!-- ======================================================================
-         PAGE 4: CONFERENCING LOG (ADD, REMOVE & INLINE EDIT CHECKPOINTS)
+         PAGE 4: POST 4 // INTERACTIVE SECONDARY RESEARCH MINDMAP
+         ====================================================================== -->
+    <section id="view-post4" class="page-view" role="tabpanel" hidden>
+      <div class="view-container wide-1440p">
+        <!-- Molded Art Deco Header Banner -->
+        <header class="vfd-window vfd-banner-bar ziggurat-bracket-frame">
+          <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+
+          <div class="vfd-banner-left">
+            <div class="banner-tag-row">
+              <span class="vfd-sub-tag">BANK 04 // SECONDARY RESEARCH ARCHITECTURE &amp; CONCEPT GRAPH</span>
+              <span class="engraved-spec-badge">DRAGGABLE NODES &amp; JOT-NOTE DROPDOWNS</span>
+            </div>
+            <h1>POST 4 // RESEARCH MINDMAP</h1>
+            <p>How mass distribution governs moment of inertia (I), angular momentum (L), reaction wheels, gyroscopic precession, and real-world impact</p>
+          </div>
+
+          <!-- Branch Filter Controls -->
+          <div class="segmented-control-well mm-filter-well" role="group" aria-label="Filter Mindmap Branches">
+            <button type="button" class="seg-btn mm-branch-btn active" data-branch-filter="all">All (6)</button>
+            <button type="button" class="seg-btn mm-branch-btn" data-branch-filter="physics">Core Physics</button>
+            <button type="button" class="seg-btn amber-mode mm-branch-btn" data-branch-filter="precession">Precession</button>
+            <button type="button" class="seg-btn mm-branch-btn" data-branch-filter="mechanisms">RW vs. CMG</button>
+            <button type="button" class="seg-btn mm-branch-btn" data-branch-filter="experiments">Experiments</button>
+            <button type="button" class="seg-btn mm-branch-btn" data-branch-filter="apps">Applications</button>
+            <button type="button" class="seg-btn amber-mode mm-branch-btn" data-branch-filter="refs">References</button>
+          </div>
+        </header>
+
+        <!-- Main Interactive Mindmap Enclosure -->
+        <article class="chassis-module mindmap-chassis ziggurat-bracket-frame">
+          <svg class="zig-bracket zig-tl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 0 H24 V4 H16 V10 H8 V18 H4 V24 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-tr" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 0 H0 V4 H8 V10 H16 V18 H20 V24 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-bl" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M0 24 H24 V20 H16 V14 H8 V6 H4 V0 H0 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+          <svg class="zig-bracket zig-br" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M24 24 H0 V20 H8 V14 H16 V6 H20 V0 H24 Z" fill="var(--brass-primary)" stroke="var(--brass-deep)" stroke-width="0.5"/>
+          </svg>
+
+          <div class="module-header-strip">
+            <div class="module-header-left">
+              <span class="module-index-tag emerald">CONCEPT MAP</span>
+              <span class="module-title-text">Interactive Rotational Dynamics Knowledge Graph</span>
+            </div>
+            <div class="module-header-right">
+              <span>DRAG NODES TO REARRANGE // DRAG CANVAS TO PAN // SCROLL TO ZOOM</span>
+              <span class="vent-slits" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+
+          <!-- Mindmap Action Toolbar -->
+          <div class="mindmap-toolbar">
+            <div class="mm-toolbar-group">
+              <button type="button" id="mm-expand-all-btn" class="tactile-action-btn">Expand All Notes</button>
+              <button type="button" id="mm-collapse-all-btn" class="tactile-action-btn">Collapse All</button>
+              <button type="button" id="mm-reset-layout-btn" class="tactile-action-btn primary">Reset &amp; Fit Layout</button>
+            </div>
+            <div class="mm-toolbar-group mm-zoom-controls">
+              <button type="button" id="mm-zoom-out-btn" class="seg-btn" aria-label="Zoom out">&minus;</button>
+              <span id="mm-zoom-readout" class="annunciator-lamp lit-cyan">100%</span>
+              <button type="button" id="mm-zoom-in-btn" class="seg-btn" aria-label="Zoom in">+</button>
+            </div>
+          </div>
+
+          <!-- Recessed VFD Optical Mindmap Stage -->
+          <div id="mindmap-stage" class="vfd-window mindmap-stage smoked-glass-bay" aria-label="Interactive Research Mindmap Canvas">
+            <div id="mindmap-world" class="mindmap-world">
+              <svg id="mindmap-edges" class="mindmap-edges-svg" width="2200" height="1400" aria-hidden="true"></svg>
+              <div id="mindmap-nodes" class="mindmap-nodes-layer"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         PAGE 5: CONFERENCING LOG (ADD, REMOVE & INLINE EDIT CHECKPOINTS)
          ====================================================================== -->
     <section id="view-conferencing" class="page-view" role="tabpanel" hidden>
       <div class="view-container">
